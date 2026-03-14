@@ -330,7 +330,7 @@ export default function App() {
               <h3>⏱️ Registrations by 3-Hour Window</h3>
               <ResponsiveContainer width="100%" height={isMobile ? 320 : 360}>
                 <PieChart margin={{ top: isMobile ? 24 : 28, right: isMobile ? 28 : 96, left: isMobile ? 28 : 96, bottom: isMobile ? 56 : 64 }}>
-                  <Pie data={threeHourData} dataKey="value" nameKey="name" cx="50%" cy={isMobile ? '44%' : '46%'} outerRadius={isMobile ? 74 : 122} label={renderTimeWindowLabel}>
+                  <Pie data={threeHourData} dataKey="value" nameKey="name" cx="50%" cy={isMobile ? '44%' : '46%'} outerRadius={isMobile ? 64 : 108} label={renderTimeWindowLabel}>
                     {threeHourData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
