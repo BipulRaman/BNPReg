@@ -9,6 +9,13 @@ export function useCSVData() {
   const [data, setData] = useState<Registration[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [tick, setTick] = useState(0);
+
+  const refresh = () => {
+    setLoading(true);
+    setError(null);
+    setTick(t => t + 1);
+  };
 
   useEffect(() => {
     const url = `${CSV_URL}&_t=${Date.now()}`;
@@ -45,7 +52,7 @@ export function useCSVData() {
         setLoading(false);
       },
     });
-  }, []);
+  }, [tick]);
 
-  return { data, loading, error };
+  return { data, loading, error, refresh };
 }

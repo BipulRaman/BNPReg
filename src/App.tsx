@@ -8,7 +8,7 @@ import {
 import { useCSVData } from './useCSVData';
 import {
   countBy, countByRoles, countByJNVDistrict,
-  registrationTimeline, totalDonations, entryYearDistribution,
+  registrationTimeline, registrationByThreeHourWindow, totalDonations, entryYearDistribution,
 } from './analytics';
 
 const COLORS = ['#3b82f6', '#22c55e', '#f97316', '#ec4899', '#a855f7', '#eab308', '#ef4444', '#06b6d4', '#84cc16', '#f43f5e'];
@@ -29,7 +29,7 @@ function getCurrentISTPin(): string {
 }
 
 export default function App() {
-  const { data, loading, error } = useCSVData();
+  const { data, loading, error, refresh } = useCSVData();
   const [isMobile, setIsMobile] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false;
     return window.innerWidth <= 768;
@@ -135,6 +135,7 @@ export default function App() {
     return top10;
   }, [jnvData]);
   const timelineData = useMemo(() => registrationTimeline(data), [data]);
+  const threeHourData = useMemo(() => registrationByThreeHourWindow(data), [data]);
   const total$ = useMemo(() => totalDonations(data), [data]);
   const yearData = useMemo(() => entryYearDistribution(data), [data]);
   const donors = useMemo(() => data.filter(d => d.donationAmount > 0).length, [data]);
@@ -144,6 +145,14 @@ export default function App() {
     name: string; value: number; percent: number; x: number; y: number; cx: number;
   }) => (
     <text x={x} y={y} fill="#374151" fontSize={isMobile ? 9 : 12} textAnchor={x > pcx ? 'start' : 'end'} dominantBaseline="central">
+      {`${name} - ${value} (${(percent * 100).toFixed(0)}%)`}
+    </text>
+  ), [isMobile]);
+
+  const renderTimeWindowLabel = useCallback(({ name, value, percent, x, y, cx: pcx }: {
+    name: string; value: number; percent: number; x: number; y: number; cx: number;
+  }) => (
+    <text x={x} y={y} fill="#374151" fontSize={isMobile ? 8 : 10} textAnchor={x > pcx ? 'start' : 'end'} dominantBaseline="central">
       {`${name} - ${value} (${(percent * 100).toFixed(0)}%)`}
     </text>
   ), [isMobile]);
@@ -258,7 +267,12 @@ export default function App() {
     <div className="app">
       <header className="header">
         <h1>Samagam 2026 — Registration Analytics</h1>
-        <p>Live data from {data.length} registrations</p>
+        <div className="header-meta">
+          <p>Live data from {data.length} registrations</p>
+          <button className="refresh-btn" onClick={refresh} disabled={loading}>
+            {loading ? '↻ Refreshing…' : '↻ Refresh Data'}
+          </button>
+        </div>
       </header>
 
       <div className="tabs">
@@ -308,6 +322,20 @@ export default function App() {
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
                   <Area type="monotone" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} name="Registrations" />
                 </AreaChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* 3-Hour Registration Windows */}
+            <div className="chart-card">
+              <h3>⏱️ Registrations by 3-Hour Window</h3>
+              <ResponsiveContainer width="100%" height={isMobile ? 320 : 360}>
+                <PieChart margin={{ top: isMobile ? 24 : 28, right: isMobile ? 28 : 96, left: isMobile ? 28 : 96, bottom: isMobile ? 56 : 64 }}>
+                  <Pie data={threeHourData} dataKey="value" nameKey="name" cx="50%" cy={isMobile ? '44%' : '46%'} outerRadius={isMobile ? 74 : 122} label={renderTimeWindowLabel}>
+                    {threeHourData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
+                  </Pie>
+                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Legend verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: isMobile ? 12 : 14 }} />
+                </PieChart>
               </ResponsiveContainer>
             </div>
 

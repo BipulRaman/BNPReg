@@ -53,6 +53,43 @@ export function registrationTimeline(data: Registration[]): ChartDatum[] {
     });
 }
 
+export function registrationByThreeHourWindow(data: Registration[]): ChartDatum[] {
+  const windows = Array.from({ length: 8 }, (_, i) => i * 3);
+  const counts: Record<number, number> = {};
+
+  for (const start of windows) {
+    counts[start] = 0;
+  }
+
+  for (const row of data) {
+    const match = row.timestamp.match(/(\d{1,2}):(\d{2})(?::\d{2})?\s*(AM|PM)?/i);
+    if (!match) continue;
+
+    let hour = parseInt(match[1] ?? '0', 10);
+    const meridiem = (match[3] ?? '').toUpperCase();
+
+    if (meridiem === 'AM' && hour === 12) hour = 0;
+    if (meridiem === 'PM' && hour < 12) hour += 12;
+
+    if (Number.isNaN(hour) || hour < 0 || hour > 23) continue;
+
+    const startHour = Math.floor(hour / 3) * 3;
+    counts[startHour] = (counts[startHour] || 0) + 1;
+  }
+
+  const fmt = (h: number) => `${String(h).padStart(2, '0')}:00`;
+
+  return windows
+    .map((start) => {
+      const end = (start + 3) % 24;
+      return {
+        name: `${fmt(start)}-${fmt(end)}`,
+        value: counts[start] || 0,
+      };
+    })
+    .filter((d) => d.value > 0);
+}
+
 export function totalDonations(data: Registration[]): number {
   return data.reduce((sum, row) => sum + row.donationAmount, 0);
 }
