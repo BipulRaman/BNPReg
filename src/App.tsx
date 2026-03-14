@@ -144,18 +144,18 @@ export default function App() {
   const renderPieLabel = useCallback(({ name, value, percent, x, y, cx: pcx }: {
     name: string; value: number; percent: number; x: number; y: number; cx: number;
   }) => (
-    <text x={x} y={y} fill="#374151" fontSize={isMobile ? 9 : 12} textAnchor={x > pcx ? 'start' : 'end'} dominantBaseline="central">
+    <text className="pie-label-text" x={x} y={y} textAnchor={x > pcx ? 'start' : 'end'} dominantBaseline="central">
       {`${name} - ${value} (${(percent * 100).toFixed(0)}%)`}
     </text>
-  ), [isMobile]);
+  ), []);
 
   const renderTimeWindowLabel = useCallback(({ name, value, percent, x, y, cx: pcx }: {
     name: string; value: number; percent: number; x: number; y: number; cx: number;
   }) => (
-    <text x={x} y={y} fill="#374151" fontSize={isMobile ? 8 : 10} textAnchor={x > pcx ? 'start' : 'end'} dominantBaseline="central">
+    <text className="time-window-label-text" x={x} y={y} textAnchor={x > pcx ? 'start' : 'end'} dominantBaseline="central">
       {`${name} - ${value} (${(percent * 100).toFixed(0)}%)`}
     </text>
-  ), [isMobile]);
+  ), []);
 
   const filteredData = useMemo(() => {
     let result = data;
@@ -289,23 +289,23 @@ export default function App() {
           {/* Summary Cards */}
           <div className="summary-grid">
             <div className="summary-card">
-              <div className="value" style={{ color: '#3b82f6' }}>{data.length}</div>
+              <div className="value summary-value-registrations">{data.length}</div>
               <div className="label">Total Registrations</div>
             </div>
             <div className="summary-card">
-              <div className="value" style={{ color: '#22c55e' }}>₹{total$.toLocaleString('en-IN')}</div>
+              <div className="value summary-value-donations">₹{total$.toLocaleString('en-IN')}</div>
               <div className="label">Total Donations</div>
             </div>
             <div className="summary-card">
-              <div className="value" style={{ color: '#f97316' }}>{donors}</div>
+              <div className="value summary-value-donors">{donors}</div>
               <div className="label">Donors</div>
             </div>
             <div className="summary-card">
-              <div className="value" style={{ color: '#a855f7' }}>{jnvData.length}</div>
+              <div className="value summary-value-jnv">{jnvData.length}</div>
               <div className="label">JNV Districts</div>
             </div>
             <div className="summary-card">
-              <div className="value" style={{ color: '#ec4899' }}>{startupYes}</div>
+              <div className="value summary-value-startup">{startupYes}</div>
               <div className="label">Need Startup Aid</div>
             </div>
           </div>
@@ -319,7 +319,7 @@ export default function App() {
                 <AreaChart data={timelineData}>
                   <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
                   <YAxis stroke="#94a3b8" fontSize={12} allowDecimals={false} />
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Tooltip />
                   <Area type="monotone" dataKey="value" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.2} name="Registrations" />
                 </AreaChart>
               </ResponsiveContainer>
@@ -333,8 +333,8 @@ export default function App() {
                   <Pie data={threeHourData} dataKey="value" nameKey="name" cx="50%" cy={isMobile ? '44%' : '46%'} outerRadius={isMobile ? 64 : 108} label={renderTimeWindowLabel}>
                     {threeHourData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
-                  <Legend verticalAlign="bottom" align="center" wrapperStyle={{ fontSize: isMobile ? 12 : 14 }} />
+                  <Tooltip />
+                  <Legend verticalAlign="bottom" align="center" />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -347,7 +347,7 @@ export default function App() {
                   <Pie data={genderData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {genderData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Tooltip />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -361,7 +361,7 @@ export default function App() {
                   <Pie data={profileData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {profileData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Tooltip />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -375,7 +375,7 @@ export default function App() {
                   <Pie data={foodData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {foodData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Tooltip />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -389,7 +389,7 @@ export default function App() {
                   <Pie data={bloodData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {bloodData.map((_, i) => <Cell key={i} fill={[COLORS[1], COLORS[6]][i] ?? COLORS[i]} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Tooltip />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -402,7 +402,7 @@ export default function App() {
                 <BarChart data={rolesData} layout="vertical">
                   <XAxis type="number" stroke="#94a3b8" fontSize={12} allowDecimals={false} />
                   <YAxis type="category" dataKey="name" stroke="#94a3b8" fontSize={11} width={isMobile ? 96 : 140} />
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Tooltip />
                   <Bar dataKey="value" fill="#a855f7" radius={[0, 4, 4, 0]} name="Count">
                     <LabelList dataKey="value" position="right" fill="#475569" fontSize={11} formatter={(v: number) => isMobile ? `${v}` : `${v} (${((v / data.length) * 100).toFixed(0)}%)`} />
                   </Bar>
@@ -417,7 +417,7 @@ export default function App() {
                 <BarChart data={yearData}>
                   <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} />
                   <YAxis stroke="#94a3b8" fontSize={12} allowDecimals={false} />
-                  <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
+                  <Tooltip />
                   <Bar dataKey="value" fill="#f97316" radius={[4, 4, 0, 0]} name="Count">
                     <LabelList dataKey="value" position="top" fill="#475569" fontSize={11} formatter={(v: number) => isMobile ? `${v}` : `${v} (${((v / data.length) * 100).toFixed(0)}%)`} />
                   </Bar>
@@ -433,7 +433,7 @@ export default function App() {
                   <Pie data={jnvPieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 70 : 150} label={renderPieLabel}>
                     {jnvPieData.map((_, i) => <Cell key={i} fill={i === 10 ? '#94a3b8' : COLORS[i % COLORS.length]} />)}
                   </Pie>
-                  <Tooltip contentStyle={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: 8 }} />
+                  <Tooltip />
                   {!isMobile && <Legend />}
                 </PieChart>
               </ResponsiveContainer>
@@ -452,7 +452,7 @@ export default function App() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <div style={{ overflowX: 'auto', maxHeight: '70vh', overflowY: 'auto' }}>
+          <div className="table-scroll">
             <table>
               <thead>
                 <tr>
@@ -464,7 +464,7 @@ export default function App() {
                       onDragOver={(e) => handleDragOver(e, idx)}
                       onDrop={(e) => handleDrop(e)}
                       onClick={() => handleSort(col.key)}
-                      style={{ cursor: 'grab' }}
+                      className="th-draggable"
                     >
                       {col.label} {sortCol === col.key ? (sortAsc ? '▲' : '▼') : ''}
                     </th>
@@ -472,7 +472,7 @@ export default function App() {
                 </tr>
                 <tr>
                   {columns.map((col) => (
-                    <th key={`filter-${col.key}`} style={{ padding: '4px 6px' }}>
+                    <th key={`filter-${col.key}`} className="filter-th">
                       <input
                         className="col-filter"
                         type="text"
