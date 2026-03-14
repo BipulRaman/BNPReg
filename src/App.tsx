@@ -30,6 +30,10 @@ function getCurrentISTPin(): string {
 
 export default function App() {
   const { data, loading, error } = useCSVData();
+  const [isMobile, setIsMobile] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    return window.innerWidth <= 768;
+  });
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
@@ -71,6 +75,12 @@ export default function App() {
     }, 1000);
 
     return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const onResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
   }, []);
 
   const handlePinSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
@@ -129,6 +139,14 @@ export default function App() {
   const yearData = useMemo(() => entryYearDistribution(data), [data]);
   const donors = useMemo(() => data.filter(d => d.donationAmount > 0).length, [data]);
   const startupYes = useMemo(() => data.filter(d => d.startupAid === 'Yes').length, [data]);
+
+  const renderPieLabel = useCallback(({ name, value, percent, x, y, cx: pcx }: {
+    name: string; value: number; percent: number; x: number; y: number; cx: number;
+  }) => (
+    <text x={x} y={y} fill="#374151" fontSize={isMobile ? 9 : 12} textAnchor={x > pcx ? 'start' : 'end'} dominantBaseline="central">
+      {`${name} - ${value} (${(percent * 100).toFixed(0)}%)`}
+    </text>
+  ), [isMobile]);
 
   const filteredData = useMemo(() => {
     let result = data;
@@ -283,7 +301,7 @@ export default function App() {
             {/* Registration Timeline */}
             <div className="chart-card full-width">
               <h3>📈 Registration Timeline</h3>
-              <ResponsiveContainer width="100%" height={250}>
+              <ResponsiveContainer width="100%" height={isMobile ? 220 : 250}>
                 <AreaChart data={timelineData}>
                   <XAxis dataKey="name" stroke="#94a3b8" fontSize={12} />
                   <YAxis stroke="#94a3b8" fontSize={12} allowDecimals={false} />
@@ -296,9 +314,9 @@ export default function App() {
             {/* Gender */}
             <div className="chart-card">
               <h3>👥 Gender Distribution</h3>
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={isMobile ? 240 : 280}>
                 <PieChart>
-                  <Pie data={genderData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name, value, percent }: { name: string; value: number; percent: number }) => `${name} - ${value} (${(percent * 100).toFixed(0)}%)`}>
+                  <Pie data={genderData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {genderData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
@@ -310,9 +328,9 @@ export default function App() {
             {/* Current Profile */}
             <div className="chart-card">
               <h3>💼 Current Profile</h3>
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={isMobile ? 240 : 280}>
                 <PieChart>
-                  <Pie data={profileData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name, value, percent }) => `${name} - ${value} (${(percent * 100).toFixed(0)}%)`}>
+                  <Pie data={profileData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {profileData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
@@ -324,9 +342,9 @@ export default function App() {
             {/* Food Preferences */}
             <div className="chart-card">
               <h3>🍽️ Food Preferences</h3>
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={isMobile ? 240 : 280}>
                 <PieChart>
-                  <Pie data={foodData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name, value, percent }) => `${name} - ${value} (${(percent * 100).toFixed(0)}%)`}>
+                  <Pie data={foodData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {foodData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
                   </Pie>
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
@@ -338,9 +356,9 @@ export default function App() {
             {/* Blood Donation */}
             <div className="chart-card">
               <h3>🩸 Blood Donation Willingness</h3>
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={isMobile ? 240 : 280}>
                 <PieChart>
-                  <Pie data={bloodData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label={({ name, value, percent }) => `${name} - ${value} (${(percent * 100).toFixed(0)}%)`}>
+                  <Pie data={bloodData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 60 : 100} label={renderPieLabel}>
                     {bloodData.map((_, i) => <Cell key={i} fill={[COLORS[1], COLORS[6]][i] ?? COLORS[i]} />)}
                   </Pie>
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
@@ -352,13 +370,13 @@ export default function App() {
             {/* Participation Roles */}
             <div className="chart-card">
               <h3>🎭 Participation Roles</h3>
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={isMobile ? 240 : 280}>
                 <BarChart data={rolesData} layout="vertical">
                   <XAxis type="number" stroke="#94a3b8" fontSize={12} allowDecimals={false} />
-                  <YAxis type="category" dataKey="name" stroke="#94a3b8" fontSize={11} width={140} />
+                  <YAxis type="category" dataKey="name" stroke="#94a3b8" fontSize={11} width={isMobile ? 96 : 140} />
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
                   <Bar dataKey="value" fill="#a855f7" radius={[0, 4, 4, 0]} name="Count">
-                    <LabelList dataKey="value" position="right" fill="#475569" fontSize={11} formatter={(v: number) => `${v} (${((v / data.length) * 100).toFixed(0)}%)`} />
+                    <LabelList dataKey="value" position="right" fill="#475569" fontSize={11} formatter={(v: number) => isMobile ? `${v}` : `${v} (${((v / data.length) * 100).toFixed(0)}%)`} />
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
@@ -367,13 +385,13 @@ export default function App() {
             {/* Entry Year */}
             <div className="chart-card">
               <h3>📅 JNV Entry Year</h3>
-              <ResponsiveContainer width="100%" height={280}>
+              <ResponsiveContainer width="100%" height={isMobile ? 240 : 280}>
                 <BarChart data={yearData}>
                   <XAxis dataKey="name" stroke="#94a3b8" fontSize={11} />
                   <YAxis stroke="#94a3b8" fontSize={12} allowDecimals={false} />
                   <Tooltip contentStyle={{ background: '#1e293b', border: '1px solid #334155', borderRadius: 8 }} />
                   <Bar dataKey="value" fill="#f97316" radius={[4, 4, 0, 0]} name="Count">
-                    <LabelList dataKey="value" position="top" fill="#475569" fontSize={11} formatter={(v: number) => `${v} (${((v / data.length) * 100).toFixed(0)}%)`} />
+                    <LabelList dataKey="value" position="top" fill="#475569" fontSize={11} formatter={(v: number) => isMobile ? `${v}` : `${v} (${((v / data.length) * 100).toFixed(0)}%)`} />
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
@@ -382,13 +400,13 @@ export default function App() {
             {/* JNV Districts */}
             <div className="chart-card full-width">
               <h3>🏫 JNV District Distribution (Top 10 + Others)</h3>
-              <ResponsiveContainer width="100%" height={400}>
+              <ResponsiveContainer width="100%" height={isMobile ? 300 : 400}>
                 <PieChart>
-                  <Pie data={jnvPieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={150} label={({ name, value, percent }) => `${name} - ${value} (${(percent * 100).toFixed(0)}%)`}>
+                  <Pie data={jnvPieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 70 : 150} label={renderPieLabel}>
                     {jnvPieData.map((_, i) => <Cell key={i} fill={i === 10 ? '#94a3b8' : COLORS[i % COLORS.length]} />)}
                   </Pie>
                   <Tooltip contentStyle={{ background: '#ffffff', border: '1px solid #cbd5e1', borderRadius: 8 }} />
-                  <Legend />
+                  {!isMobile && <Legend />}
                 </PieChart>
               </ResponsiveContainer>
             </div>

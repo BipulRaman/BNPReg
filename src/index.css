@@ -366,6 +366,10 @@ tbody tr:hover {
     padding: 12px;
   }
 
+  .chart-card {
+    padding: 14px;
+  }
+
   .charts-grid {
     grid-template-columns: 1fr;
   }
