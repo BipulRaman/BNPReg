@@ -80,7 +80,7 @@ export default function App() {
         setAllowedEmails(emails.map(e => e.toLowerCase()));
       })
       .catch(() => {
-        setAuthError('Failed to load access list. Please try again later.');
+        setAuthError('Something went wrong. Please try again later.');
       });
   }, []);
 
@@ -94,7 +94,7 @@ export default function App() {
           const payload = decodeJwtPayload(response.credential);
           const email = payload.email as string;
           if (allowedEmails.length > 0 && !allowedEmails.includes(email.toLowerCase())) {
-            setAuthError(`Access denied for ${email}.`);
+            setAuthError('Access denied.');
             return;
           }
           setAuthError('');
@@ -260,10 +260,7 @@ export default function App() {
         <div className="auth-gate">
           <h1>Samagam 2026</h1>
           <p>Sign in with your Google account to access the dashboard.</p>
-          {allowedEmails === null
-            ? <div className="spinner" />
-            : <div ref={googleBtnRef} className="google-btn-wrap" />
-          }
+          <div ref={googleBtnRef} className="google-btn-wrap" />
           {authError && <p className="auth-error">{authError}</p>}
         </div>
       </div>
