@@ -1,68 +1,32 @@
-# BNPReg
+# Samagam 5.0
 
-Registration analytics dashboard for Samagam 2026, built with React, TypeScript, and Vite.
+Collaboration platform for **Bihar Navodaya Pariwar** — a unified hub for managing event registrations, tracking analytics, and generating official documents for the Bihar Navodayan Samagam 2026.
 
-## Overview
+## Features
 
-This project visualizes registration data with charts, summaries, and a searchable table.
-It is configured for static hosting with a custom domain.
+- **Google Authentication** — Secured with Google Sign-In, restricted to an allowlist of authorized emails.
+- **Registrations** — Searchable, sortable, and filterable data table of all event registrations with per-column filters, draggable columns, and detail modals.
+- **Analytics Dashboard** — Interactive charts powered by live registration data: gender distribution, food preferences, participation roles, JNV district breakdown, donation summaries, registration timeline, and more.
+- **Document Generator (DocGen)** — Generate official documents (e.g., invitation letters) using HTML templates with dynamic placeholders. Live A4 preview and PDF export via browser print.
 
 ## Tech Stack
 
-- React 19
-- TypeScript
-- Vite 6
-- Recharts
-- Papa Parse
+- React 19 + TypeScript
+- Vite
+- React Router
+- Recharts (charts)
+- PapaParse (CSV parsing)
+- Lucide React (icons)
 
-## Local Development
+## Getting Started
 
-1. Install dependencies:
-
-	npm install
-
-2. Start dev server:
-
-	npm run dev
-
-3. Open:
-
-	http://localhost:3000
+```bash
+npm install
+npm run dev
+```
 
 ## Build
 
-Create production output in dist:
-
-	npm run build
-
-Preview production build locally:
-
-	npm run preview
-
-## Deployment Notes
-
-- Hosting target is static output from dist.
-- Vite base path must stay set to root (/).
-- Custom domain is managed by public/CNAME.
-- Keep public/favicon.ico and ensure favicon reference is /favicon.ico.
-
-## Project Structure
-
-- src/App.tsx: Main UI and dashboard screens
-- src/analytics.ts: Aggregation helpers and chart data preparation
-- src/useCSVData.ts: CSV data fetch and parsing hook
-- src/types.ts: Shared TypeScript interfaces
-- public/CNAME: Custom domain mapping
-- public/favicon.ico: Site favicon
-- vite.config.ts: Vite configuration
-
-## Security and Access
-
-- Do not document or publish any authentication or gatekeeping logic details.
-- Keep any access-control implementation internal to the application code.
-
-## Troubleshooting
-
-- If build fails with missing tools, run npm install first.
-- If static assets fail to load in production, verify vite.config.ts uses root base path.
-- If custom domain is not applied, confirm public/CNAME is present and copied to dist/CNAME.
+```bash
+npm run build
+```
