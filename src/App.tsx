@@ -14,6 +14,7 @@ import {
 const COLORS = ['#3b82f6', '#22c55e', '#f97316', '#ec4899', '#a855f7', '#eab308', '#ef4444', '#06b6d4', '#84cc16', '#f43f5e'];
 
 const GOOGLE_CLIENT_ID = '611874550622-envgonngfv8fan2i654sr89jpufi3g1v.apps.googleusercontent.com';
+const ALLOWED_EMAILS_URL = 'https://cdn.bipul.in/bipul.in/sam5.json';
 
 interface GoogleUser {
   name: string;
@@ -36,7 +37,8 @@ export default function App() {
   });
   const [user, setUser] = useState<GoogleUser | null>(null);
   const googleBtnRef = useRef<HTMLDivElement>(null);
-  const [showUserMenu, setShowUserMenu] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [allowedEmails, setAllowedEmails] = useState<string[] | null>(null);
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const [search, setSearch] = useState('');
   const [sortCol, setSortCol] = useState<string>('timestamp');
@@ -69,15 +71,36 @@ export default function App() {
   const dragOverCol = useRef<number | null>(null);
 
   useEffect(() => {
+    fetch(ALLOWED_EMAILS_URL)
+      .then(r => r.text())
+      .then(text => {
+        // Handle trailing commas in JSON
+        const cleaned = text.replace(/,\s*]/g, ']');
+        const emails: string[] = JSON.parse(cleaned);
+        setAllowedEmails(emails.map(e => e.toLowerCase()));
+      })
+      .catch(() => {
+        setAuthError('Failed to load access list. Please try again later.');
+      });
+  }, []);
+
+  useEffect(() => {
+    if (allowedEmails === null) return; // wait for allowlist to load
     const initGoogle = () => {
       if (!window.google) return;
       window.google.accounts.id.initialize({
         client_id: GOOGLE_CLIENT_ID,
         callback: (response: { credential: string }) => {
           const payload = decodeJwtPayload(response.credential);
+          const email = payload.email as string;
+          if (allowedEmails.length > 0 && !allowedEmails.includes(email.toLowerCase())) {
+            setAuthError(`Access denied for ${email}.`);
+            return;
+          }
+          setAuthError('');
           setUser({
             name: payload.name as string,
-            email: payload.email as string,
+            email,
             picture: payload.picture as string,
           });
         },
@@ -104,7 +127,7 @@ export default function App() {
       }, 100);
       return () => clearInterval(check);
     }
-  }, [user]);
+  }, [user, allowedEmails]);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 768);
@@ -237,7 +260,11 @@ export default function App() {
         <div className="auth-gate">
           <h1>Samagam 2026</h1>
           <p>Sign in with your Google account to access the dashboard.</p>
-          <div ref={googleBtnRef} className="google-btn-wrap" />
+          {allowedEmails === null
+            ? <div className="spinner" />
+            : <div ref={googleBtnRef} className="google-btn-wrap" />
+          }
+          {authError && <p className="auth-error">{authError}</p>}
         </div>
       </div>
     );
@@ -276,22 +303,9 @@ export default function App() {
           </button>
         </div>
         <div className="user-info">
-          <img
-            src={user.picture}
-            alt={user.name}
-            className="user-avatar"
-            referrerPolicy="no-referrer"
-            onClick={() => setShowUserMenu(prev => !prev)}
-          />
+          <img src={user.picture} alt={user.name} className="user-avatar" referrerPolicy="no-referrer" />
           <span className="user-name">{user.name}</span>
           <button className="sign-out-btn" onClick={handleSignOut}>Sign Out</button>
-          {showUserMenu && (
-            <div className="user-dropdown">
-              <span className="user-dropdown-name">{user.name}</span>
-              <span className="user-dropdown-email">{user.email}</span>
-              <button className="sign-out-btn" onClick={handleSignOut}>Sign Out</button>
-            </div>
-          )}
         </div>
       </header>
 

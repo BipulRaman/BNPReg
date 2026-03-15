@@ -71,6 +71,12 @@ body {
   justify-content: center;
 }
 
+.auth-error {
+  margin-top: 14px;
+  color: var(--red);
+  font-size: 0.9rem;
+}
+
 .user-info {
   position: absolute;
   top: 16px;
@@ -84,11 +90,6 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  cursor: pointer;
-}
-
-.user-dropdown {
-  display: none;
 }
 
 .user-name {
@@ -429,6 +430,7 @@ tbody tr:hover {
 
   .header {
     padding: 20px 14px;
+    padding-top: 48px;
   }
 
   .header-meta {
@@ -443,47 +445,17 @@ tbody tr:hover {
   }
 
   .user-avatar {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
   }
 
-  .user-name,
-  .sign-out-btn:not(.user-dropdown .sign-out-btn) {
-    display: none;
+  .user-name {
+    font-size: 0.78rem;
   }
 
-  .user-dropdown {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-    min-width: 180px;
-    z-index: 100;
-  }
-
-  .user-dropdown-name {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: var(--text-primary);
-  }
-
-  .user-dropdown-email {
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-  }
-
-  .user-dropdown .sign-out-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
+  .sign-out-btn {
+    padding: 4px 10px;
+    font-size: 0.75rem;
   }
 
   .header-meta p {
