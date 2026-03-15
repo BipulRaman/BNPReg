@@ -13,20 +13,20 @@ import {
 
 const COLORS = ['#3b82f6', '#22c55e', '#f97316', '#ec4899', '#a855f7', '#eab308', '#ef4444', '#06b6d4', '#84cc16', '#f43f5e'];
 
-type Tab = 'overview' | 'table';
+const GOOGLE_CLIENT_ID = '611874550622-envgonngfv8fan2i654sr89jpufi3g1v.apps.googleusercontent.com';
 
-function getCurrentISTPin(): string {
-  const parts = new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Kolkata',
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: false,
-  }).formatToParts(new Date());
-
-  const hour = parts.find((part) => part.type === 'hour')?.value ?? '00';
-  const minute = parts.find((part) => part.type === 'minute')?.value ?? '00';
-  return `${hour}${minute}`;
+interface GoogleUser {
+  name: string;
+  email: string;
+  picture: string;
 }
+
+function decodeJwtPayload(token: string): Record<string, unknown> {
+  const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+  return JSON.parse(atob(base64));
+}
+
+type Tab = 'overview' | 'table';
 
 export default function App() {
   const { data, loading, error, refresh } = useCSVData();
@@ -34,10 +34,9 @@ export default function App() {
     if (typeof window === 'undefined') return false;
     return window.innerWidth <= 768;
   });
-  const [isUnlocked, setIsUnlocked] = useState(false);
-  const [pinInput, setPinInput] = useState('');
-  const [pinError, setPinError] = useState('');
-  const [currentISTPin, setCurrentISTPin] = useState(getCurrentISTPin);
+  const [user, setUser] = useState<GoogleUser | null>(null);
+  const googleBtnRef = useRef<HTMLDivElement>(null);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const [search, setSearch] = useState('');
   const [sortCol, setSortCol] = useState<string>('timestamp');
@@ -70,12 +69,42 @@ export default function App() {
   const dragOverCol = useRef<number | null>(null);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentISTPin(getCurrentISTPin());
-    }, 1000);
+    const initGoogle = () => {
+      if (!window.google) return;
+      window.google.accounts.id.initialize({
+        client_id: GOOGLE_CLIENT_ID,
+        callback: (response: { credential: string }) => {
+          const payload = decodeJwtPayload(response.credential);
+          setUser({
+            name: payload.name as string,
+            email: payload.email as string,
+            picture: payload.picture as string,
+          });
+        },
+      });
+      if (googleBtnRef.current) {
+        window.google.accounts.id.renderButton(googleBtnRef.current, {
+          theme: 'outline',
+          size: 'large',
+          text: 'signin_with',
+          shape: 'rectangular',
+        });
+      }
+    };
 
-    return () => clearInterval(timer);
-  }, []);
+    // GSI script may load after component mounts
+    if (window.google) {
+      initGoogle();
+    } else {
+      const check = setInterval(() => {
+        if (window.google) {
+          clearInterval(check);
+          initGoogle();
+        }
+      }, 100);
+      return () => clearInterval(check);
+    }
+  }, [user]);
 
   useEffect(() => {
     const onResize = () => setIsMobile(window.innerWidth <= 768);
@@ -83,17 +112,10 @@ export default function App() {
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const handlePinSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (pinInput === currentISTPin) {
-      setIsUnlocked(true);
-      setPinError('');
-      return;
-    }
-
-    setPinError('Invalid PIN.');
-  }, [pinInput, currentISTPin]);
+  const handleSignOut = useCallback(() => {
+    window.google?.accounts.id.disableAutoSelect();
+    setUser(null);
+  }, []);
 
   const handleDragStart = useCallback((e: React.DragEvent, idx: number) => {
     dragCol.current = idx;
@@ -209,33 +231,13 @@ export default function App() {
     else { setSortCol(col); setSortAsc(true); }
   };
 
-  if (!isUnlocked) {
+  if (!user) {
     return (
       <div className="app lock-wrap">
-        <div className="pin-gate">
+        <div className="auth-gate">
           <h1>Samagam 2026</h1>
-          <p>This dashboard is protected.</p>
-          <form onSubmit={handlePinSubmit} className="pin-form">
-            <label htmlFor="pin-input">Enter PIN</label>
-            <input
-              id="pin-input"
-              type="password"
-              inputMode="numeric"
-              autoComplete="off"
-              maxLength={4}
-              pattern="[0-9]{4}"
-              placeholder="Enter PIN"
-              value={pinInput}
-              onChange={(e) => {
-                const cleaned = e.target.value.replace(/\D/g, '').slice(0, 4);
-                setPinInput(cleaned);
-                if (pinError) setPinError('');
-              }}
-              required
-            />
-            <button type="submit" className="pin-submit">Unlock</button>
-          </form>
-          {pinError && <p className="pin-error">{pinError}</p>}
+          <p>Sign in with your Google account to access the dashboard.</p>
+          <div ref={googleBtnRef} className="google-btn-wrap" />
         </div>
       </div>
     );
@@ -272,6 +274,24 @@ export default function App() {
           <button className="refresh-btn" onClick={refresh} disabled={loading}>
             {loading ? '↻ Refreshing…' : '↻ Refresh Data'}
           </button>
+        </div>
+        <div className="user-info">
+          <img
+            src={user.picture}
+            alt={user.name}
+            className="user-avatar"
+            referrerPolicy="no-referrer"
+            onClick={() => setShowUserMenu(prev => !prev)}
+          />
+          <span className="user-name">{user.name}</span>
+          <button className="sign-out-btn" onClick={handleSignOut}>Sign Out</button>
+          {showUserMenu && (
+            <div className="user-dropdown">
+              <span className="user-dropdown-name">{user.name}</span>
+              <span className="user-dropdown-email">{user.email}</span>
+              <button className="sign-out-btn" onClick={handleSignOut}>Sign Out</button>
+            </div>
+          )}
         </div>
       </header>
 
