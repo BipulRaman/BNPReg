@@ -40,8 +40,8 @@ export default function App() {
   const [currentISTPin, setCurrentISTPin] = useState(getCurrentISTPin);
   const [activeTab, setActiveTab] = useState<Tab>('overview');
   const [search, setSearch] = useState('');
-  const [sortCol, setSortCol] = useState<string>('name');
-  const [sortAsc, setSortAsc] = useState(true);
+  const [sortCol, setSortCol] = useState<string>('timestamp');
+  const [sortAsc, setSortAsc] = useState(false);
   const [selectedPerson, setSelectedPerson] = useState<Registration | null>(null);
   const [colFilters, setColFilters] = useState<Record<string, string>>({});
 
