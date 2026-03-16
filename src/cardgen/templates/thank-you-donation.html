@@ -1,0 +1,89 @@
+<!-- template: { "id": "thank-you-donation", "name": "Thank You — Donation", "title": "ThankYou___#name#_" } -->
+<div style="
+  width: 100%; height: 100%;
+  background: linear-gradient(145deg, #0d1b4a 0%, #1b2a6b 35%, #243484 65%, #1a237e 100%);
+  padding: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  position: relative;
+  overflow: hidden;
+">
+  <!-- Corner ornaments -->
+  <div style="position: absolute; top: 0; left: 0; width: 60px; height: 60px; border-top: 3px solid #ffd700; border-left: 3px solid #ffd700;"></div>
+  <div style="position: absolute; top: 0; right: 0; width: 60px; height: 60px; border-top: 3px solid #ffd700; border-right: 3px solid #ffd700;"></div>
+  <div style="position: absolute; bottom: 0; left: 0; width: 60px; height: 60px; border-bottom: 3px solid #ffd700; border-left: 3px solid #ffd700;"></div>
+  <div style="position: absolute; bottom: 0; right: 0; width: 60px; height: 60px; border-bottom: 3px solid #ffd700; border-right: 3px solid #ffd700;"></div>
+
+  <div style="
+    width: 100%; height: 100%;
+    border: 1px solid rgba(255, 215, 0, 0.25);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px 32px;
+    text-align: center;
+    position: relative;
+  ">
+    <!-- Subtle glow behind logo -->
+    <div style="
+      position: absolute; top: 50px; left: 50%; transform: translateX(-50%);
+      width: 120px; height: 120px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,215,0,0.08) 0%, transparent 70%);
+    "></div>
+
+    <img src="/logo-bnp.png" alt="BNP Logo" style="
+      width: 110px; height: 110px; border-radius: 50%;
+      border: 2.5px solid rgba(255, 215, 0, 0.6);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.15);
+      margin-bottom: 10px; position: relative;
+    " />
+
+    <p style="
+      color: rgba(255,255,255,0.85); font-size: 18px; letter-spacing: 4px;
+      text-transform: uppercase; margin: 0 0 16px; font-weight: 700;
+    ">Bihar Navodaya Pariwar</p>
+
+    <!-- Decorative line -->
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <div style="width: 50px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.6));"></div>
+      <div style="width: 8px; height: 8px; border: 1px solid #ffd700; transform: rotate(45deg);"></div>
+      <div style="width: 50px; height: 1px; background: linear-gradient(90deg, rgba(255,215,0,0.6), transparent);"></div>
+    </div>
+
+    <p style="
+      font-size: 48px; font-weight: 700; color: #ffd700;
+      font-family: Georgia, 'Times New Roman', serif;
+      letter-spacing: 2px; margin: 0 0 10px;
+      text-shadow: 0 2px 12px rgba(255, 215, 0, 0.2);
+    ">Thank You</p>
+
+    <p style="
+      font-size: 34px; font-weight: 600; color: #fff;
+      margin: 0 0 6px; word-break: break-word;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    ">{{name|Name}}</p>
+
+    <p style="
+      font-size: 17px; color: rgba(255,255,255,0.6);
+      margin: 0 0 14px; letter-spacing: 0.5px;
+    ">{{jnv|JNV Name}} {{batch|Batch}}</p>
+
+    <!-- Decorative line -->
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 14px;">
+      <div style="width: 50px; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.6));"></div>
+      <div style="width: 8px; height: 8px; border: 1px solid #ffd700; transform: rotate(45deg);"></div>
+      <div style="width: 50px; height: 1px; background: linear-gradient(90deg, rgba(255,215,0,0.6), transparent);"></div>
+    </div>
+
+    <p style="
+      font-size: 18px; color: rgba(255,255,255,0.75);
+      line-height: 1.6; max-width: 560px; margin: 0;
+    ">
+      Your generous donation towards
+      <span style="color: #ffd700; font-weight: 700;">Bihar Navodayan Samagam 2026</span>
+      is deeply appreciated. Your wholehearted support strengthens the
+      Navodayan community and plays a vital role in making this gathering a grand success.
+    </p>
+  </div>
+</div>

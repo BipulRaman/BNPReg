@@ -1258,6 +1258,125 @@ textarea.docgen-form-input {
   }
 }
 
+/* ===== Card Generator ===== */
+.cardgen-page {
+  padding: 0 !important;
+}
+
+.cardgen-layout {
+  display: flex;
+  min-height: calc(100vh - var(--header-height));
+}
+
+.cardgen-sidebar {
+  width: 300px;
+  min-width: 240px;
+  background: var(--card-bg);
+  border-right: 1px solid var(--border);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cardgen-label {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--text);
+}
+
+.cardgen-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background: var(--card-bg);
+  color: var(--text);
+}
+
+.cardgen-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(63, 81, 181, 0.12);
+}
+
+.cardgen-export-btn {
+  margin-top: 12px;
+  padding: 10px 20px;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cardgen-export-btn:hover:not(:disabled) {
+  background: var(--primary-dark);
+}
+
+.cardgen-export-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cardgen-preview-area {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: #e2e6ec;
+  min-height: 0;
+}
+
+/* Card Template */
+.congrats-card {
+  width: 600px;
+  aspect-ratio: 1 / 1;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+}
+
+.cardgen-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #94a3b8;
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
+  .cardgen-layout {
+    flex-direction: column;
+  }
+
+  .cardgen-sidebar {
+    width: 100%;
+    min-width: 0;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+  }
+
+  .cardgen-preview-area {
+    padding: 16px;
+  }
+
+  .congrats-card {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
+
 /* ===== Print / PDF Styles ===== */
 @media print {
   .app-header,

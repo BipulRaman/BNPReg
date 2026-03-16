@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Registrations from './pages/Registrations';
 import Analytics from './pages/Analytics';
 import Docgen from './pages/Docgen';
+import CardGen from './pages/CardGen';
 import AccessDenied from './pages/AccessDenied';
 import { accessConfig, getAllowedPages, isEmailAllowed } from './access';
 
@@ -125,6 +126,9 @@ export default function App() {
         )}
         {allowedPages.includes('docgen') && (
           <Route path="/docgen" element={<Docgen />} />
+        )}
+        {allowedPages.includes('cardgen') && (
+          <Route path="/cardgen" element={<CardGen />} />
         )}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

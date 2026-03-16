@@ -1,12 +1,15 @@
 {
   "roles": {
-    "admin": ["home", "registrations", "analytics", "docgen"],
+    "admin": ["home", "registrations", "analytics", "docgen", "cardgen"],
     "home": ["home"],
     "registration": ["home", "registrations", "analytics"],
-    "docgen": ["home", "docgen"]
+    "docgen": ["home", "docgen"],
+    "cardgen": ["home", "cardgen"]
   },
   "users": {
-    "mail@bipul.in": ["admin"]
+    "mail@bipul.in": ["admin"],
+    "pkranjan85@gmail.com": ["admin"],
+    "gagangaurav13@gmail.com": ["admin"]
   },
   "defaultRole": ""
 }
