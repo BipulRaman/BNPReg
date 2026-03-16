@@ -25,11 +25,6 @@ export default function Layout({ user, onSignOut, allowedPages }: LayoutProps) {
         <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} allowedPages={allowedPages} />
         <main className="main-content">
           <Outlet />
-          <footer className="app-footer">
-            <div className="footer-text">
-              © Samagam 2026 | Made with ❤️ in Bharat 🇮🇳
-            </div>
-          </footer>
         </main>
       </div>
     </div>

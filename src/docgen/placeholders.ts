@@ -37,6 +37,14 @@ function escapeHtml(str: string): string {
     .replace(/'/g, "&#39;");
 }
 
+function formatToday(): string {
+  return new Date().toLocaleDateString('en-IN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
 /**
  * Replaces all placeholder tokens in the template HTML with the provided values.
  */
@@ -44,7 +52,9 @@ export function renderTemplate(
   html: string,
   values: Record<string, string>
 ): string {
-  return html.replace(
+  return html
+    .replace(/\{\{TODAY\}\}/g, formatToday())
+    .replace(
     /\{\{(\w+)\|([^|}]+)(?:\|\w+)?\}\}/g,
     (_match, key: string, label: string) => {
       const val = values[key];

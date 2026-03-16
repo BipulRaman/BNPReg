@@ -39,6 +39,9 @@ export default function Sidebar({ isOpen, onClose, allowedPages }: SidebarProps)
             </NavLink>
           ))}
         </nav>
+        <div className="sidebar-footer">
+          © Samagam 2026<br/>Made with ❤️ in Bharat 🇮🇳
+        </div>
       </aside>
     </>
   )

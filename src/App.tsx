@@ -22,11 +22,32 @@ function decodeJwtPayload(token: string): Record<string, unknown> {
   return JSON.parse(atob(base64));
 }
 
+const SESSION_KEY = 'samagam_user';
+
+function loadSession(): { user: GoogleUser; pages: string[] } | null {
+  try {
+    const raw = sessionStorage.getItem(SESSION_KEY);
+    if (!raw) return null;
+    const data = JSON.parse(raw);
+    if (data.user && Array.isArray(data.pages)) return data;
+  } catch { /* ignore */ }
+  return null;
+}
+
+function saveSession(user: GoogleUser, pages: string[]) {
+  sessionStorage.setItem(SESSION_KEY, JSON.stringify({ user, pages }));
+}
+
+function clearSession() {
+  sessionStorage.removeItem(SESSION_KEY);
+}
+
 export default function App() {
-  const [user, setUser] = useState<GoogleUser | null>(null);
+  const saved = loadSession();
+  const [user, setUser] = useState<GoogleUser | null>(saved?.user ?? null);
   const [denied, setDenied] = useState(false);
   const googleBtnRef = useRef<HTMLDivElement>(null);
-  const [allowedPages, setAllowedPages] = useState<string[]>([]);
+  const [allowedPages, setAllowedPages] = useState<string[]>(saved?.pages ?? []);
 
   useEffect(() => {
     const initGoogle = () => {
@@ -46,9 +67,11 @@ export default function App() {
             setDenied(true);
             window.google?.accounts.id.disableAutoSelect();
           } else {
+            const pages = getAllowedPages(accessConfig, email);
             setDenied(false);
-            setAllowedPages(getAllowedPages(accessConfig, email));
+            setAllowedPages(pages);
             setUser(u);
+            saveSession(u, pages);
           }
         },
       });
@@ -79,6 +102,7 @@ export default function App() {
     window.google?.accounts.id.disableAutoSelect();
     setUser(null);
     setDenied(false);
+    clearSession();
   }, []);
 
   if (!user) {
