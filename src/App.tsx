@@ -61,7 +61,10 @@ export default function App() {
             picture: payload.picture as string,
           });
         },
+        itp_support: true,
       });
+      // Show One Tap prompt (in-page dialog, no separate window)
+      window.google.accounts.id.prompt();
       if (googleBtnRef.current) {
         window.google.accounts.id.renderButton(googleBtnRef.current, {
           theme: 'outline',

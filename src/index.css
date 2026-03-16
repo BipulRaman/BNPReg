@@ -240,6 +240,7 @@ html, body {
 /* ===== Main Content ===== */
 .main-content {
   flex: 1;
+  min-width: 0;
   margin-left: var(--sidebar-width);
   display: flex;
   flex-direction: column;
@@ -248,8 +249,8 @@ html, body {
 
 .page {
   flex: 1;
+  min-width: 0;
   padding: 24px 32px;
-  max-width: 960px;
   width: 100%;
 }
 
@@ -582,6 +583,7 @@ html, body {
   border-radius: 10px;
   padding: 20px;
   overflow-x: auto;
+  min-width: 0;
 }
 
 .table-scroll {
@@ -848,57 +850,6 @@ tbody tr:hover {
     text-align: left;
   }
 
-  .docgen-layout {
-    flex-direction: column;
-  }
-
-  .docgen-sidebar {
-    width: 100%;
-    min-width: unset;
-    max-height: none;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-    padding: 16px;
-  }
-
-  .docgen-select {
-    width: 100%;
-    font-size: 1rem;
-    padding: 10px 12px;
-  }
-
-  .docgen-form-input {
-    width: 100%;
-    font-size: 1rem;
-    padding: 10px 12px;
-  }
-
-  .docgen-form-title {
-    font-size: 1.1rem;
-  }
-
-  .docgen-form-label {
-    font-size: 0.88rem;
-  }
-
-  .docgen-preview-panel {
-    max-height: none;
-    padding: 10px;
-  }
-
-  .docgen-preview-wrapper {
-    max-width: 100%;
-    align-items: stretch;
-  }
-
-  .docgen-preview-toolbar {
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .docgen-preview-title {
-    font-size: 0.85rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -919,9 +870,6 @@ tbody tr:hover {
     font-size: 0.7rem;
   }
 
-  .docgen-sidebar {
-    padding: 14px;
-  }
 }
 
 /* ===== Docgen Page ===== */
@@ -1117,18 +1065,67 @@ textarea.docgen-form-input {
   overflow: hidden;
 }
 
-@media (max-width: 860px) {
-  .docgen-letter-scaler .docgen-letter-page {
-    transform: scale(0.45);
-    transform-origin: top left;
-    margin-bottom: -55%;
+
+
+/* ===== Docgen Responsive ===== */
+@media (max-width: 768px) {
+  .docgen-layout {
+    flex-direction: column;
+  }
+
+  .docgen-sidebar {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    max-height: none;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+  }
+
+  .docgen-select {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .docgen-form-input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px 12px;
+  }
+
+  .docgen-form-title {
+    font-size: 1.1rem;
+  }
+
+  .docgen-form-label {
+    font-size: 0.88rem;
+  }
+
+  .docgen-preview-panel {
+    max-height: none;
+    padding: 10px;
+  }
+
+  .docgen-preview-wrapper {
+    max-width: 100%;
+    align-items: stretch;
+  }
+
+  .docgen-preview-toolbar {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .docgen-preview-title {
+    font-size: 0.85rem;
   }
 }
 
-@media (min-width: 481px) and (max-width: 860px) {
-  .docgen-letter-scaler .docgen-letter-page {
-    transform: scale(0.65);
-    margin-bottom: -35%;
+@media (max-width: 480px) {
+  .docgen-sidebar {
+    padding: 14px;
   }
 }
 
