@@ -4,16 +4,19 @@ import { Home, Table, BarChart3, FileText } from 'lucide-react'
 interface SidebarProps {
   isOpen: boolean
   onClose: () => void
+  allowedPages: string[]
 }
 
 const navItems = [
-  { to: '/', label: 'Home', icon: Home },
-  { to: '/registrations', label: 'Registrations', icon: Table },
-  { to: '/analytics', label: 'Analytics', icon: BarChart3 },
-  { to: '/docgen', label: 'Docgen', icon: FileText },
+  { to: '/', label: 'Home', icon: Home, page: 'home' },
+  { to: '/registrations', label: 'Registrations', icon: Table, page: 'registrations' },
+  { to: '/analytics', label: 'Analytics', icon: BarChart3, page: 'analytics' },
+  { to: '/docgen', label: 'Docgen', icon: FileText, page: 'docgen' },
 ]
 
-export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+export default function Sidebar({ isOpen, onClose, allowedPages }: SidebarProps) {
+  const visibleItems = navItems.filter(item => allowedPages.includes(item.page))
+
   return (
     <>
       {isOpen && <div className="sidebar-overlay" onClick={onClose} />}
@@ -23,7 +26,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <h2 className="profile-name">Samagam 5.0</h2>
         </div>
         <nav className="sidebar-nav">
-          {navItems.map(({ to, label, icon: Icon }) => (
+          {visibleItems.map(({ to, label, icon: Icon }) => (
             <NavLink
               key={to}
               to={to}

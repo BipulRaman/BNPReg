@@ -4,9 +4,7 @@ interface GoogleAccountsId {
   initialize(config: {
     client_id: string;
     callback: (response: { credential: string }) => void;
-    itp_support?: boolean;
   }): void;
-  prompt(): void;
   renderButton(
     element: HTMLElement,
     options: {

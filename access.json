@@ -1,0 +1,12 @@
+{
+  "roles": {
+    "admin": ["home", "registrations", "analytics", "docgen"],
+    "home": ["home"],
+    "registration": ["home", "registrations", "analytics"],
+    "docgen": ["home", "docgen"]
+  },
+  "users": {
+    "mail@bipul.in": ["admin"]
+  },
+  "defaultRole": ""
+}

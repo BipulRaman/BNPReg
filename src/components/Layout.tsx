@@ -7,9 +7,10 @@ import type { GoogleUser } from '../App'
 interface LayoutProps {
   user: GoogleUser
   onSignOut: () => void
+  allowedPages: string[]
 }
 
-export default function Layout({ user, onSignOut }: LayoutProps) {
+export default function Layout({ user, onSignOut, allowedPages }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const { pathname } = useLocation()
 
@@ -21,7 +22,7 @@ export default function Layout({ user, onSignOut }: LayoutProps) {
     <div className="app-layout">
       <Header onMenuToggle={() => setSidebarOpen(o => !o)} user={user} onSignOut={onSignOut} />
       <div className="app-body">
-        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+        <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} allowedPages={allowedPages} />
         <main className="main-content">
           <Outlet />
           <footer className="app-footer">
