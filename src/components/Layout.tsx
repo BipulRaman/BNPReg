@@ -27,7 +27,7 @@ export default function Layout({ user, onSignOut, allowedPages }: LayoutProps) {
           <Outlet />
           <footer className="app-footer">
             <div className="footer-text">
-              © Samagam 2026 | <a href="/privacy">Privacy</a> | Made with ❤️ in Bharat 🇮🇳
+              © Samagam 2026 | Made with ❤️ in Bharat 🇮🇳
             </div>
           </footer>
         </main>
