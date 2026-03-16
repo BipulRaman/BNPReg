@@ -1370,10 +1370,8 @@ textarea.docgen-form-input {
   }
 
   .congrats-card {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    aspect-ratio: 1;
+    width: 600px;
+    aspect-ratio: 1 / 1;
   }
 }
 

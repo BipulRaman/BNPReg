@@ -1,15 +1,30 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import { toPng } from 'html-to-image'
 import { loadCardTemplates } from '../cardgen/templateLoader'
 import { extractPlaceholders, renderTemplate } from '../docgen/placeholders'
 import type { LetterTemplate } from '../docgen/types'
 
 const cardTemplates = loadCardTemplates()
+const CARD_SIZE = 600
 
 export default function CardGen() {
   const [selectedTemplate, setSelectedTemplate] = useState<LetterTemplate | null>(null)
   const [formValues, setFormValues] = useState<Record<string, string>>({})
   const cardRef = useRef<HTMLDivElement>(null)
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [scale, setScale] = useState(1)
+
+  const updateScale = useCallback(() => {
+    if (!wrapperRef.current) return
+    const available = wrapperRef.current.clientWidth - 32
+    setScale(available < CARD_SIZE ? available / CARD_SIZE : 1)
+  }, [])
+
+  useEffect(() => {
+    updateScale()
+    window.addEventListener('resize', updateScale)
+    return () => window.removeEventListener('resize', updateScale)
+  }, [updateScale])
 
   const handleTemplateChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const template = cardTemplates.find(t => t.id === e.target.value) ?? null
@@ -77,10 +92,16 @@ export default function CardGen() {
           )}
         </aside>
 
-        <div className="cardgen-preview-area">
+        <div className="cardgen-preview-area" ref={wrapperRef}>
           {selectedTemplate ? (
-            <div ref={cardRef} className="congrats-card">
-              <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: renderedHtml }} />
+            <div style={scale < 1 ? { width: CARD_SIZE * scale, height: CARD_SIZE * scale } : undefined}>
+              <div
+                ref={cardRef}
+                className="congrats-card"
+                style={scale < 1 ? { transform: `scale(${scale})`, transformOrigin: 'top left' } : undefined}
+              >
+                <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: renderedHtml }} />
+              </div>
             </div>
           ) : (
             <div className="cardgen-empty">
