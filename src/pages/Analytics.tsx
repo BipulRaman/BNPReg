@@ -1,7 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from 'react'
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, LabelList,
-  PieChart, Pie, Cell, Legend,
+  PieChart, Pie, Cell,
   AreaChart, Area,
 } from 'recharts'
 import { useCSVData } from '../useCSVData'
@@ -131,13 +131,12 @@ export default function Analytics() {
         {/* 3-Hour Registration Windows */}
         <div className="chart-card">
           <h3>⏱️ Registrations by 3-Hour Window</h3>
-          <ResponsiveContainer width="100%" height={isMobile ? 320 : 360}>
-            <PieChart margin={{ top: isMobile ? 24 : 28, right: isMobile ? 28 : 96, left: isMobile ? 28 : 96, bottom: isMobile ? 56 : 64 }}>
-              <Pie data={threeHourData} dataKey="value" nameKey="name" cx="50%" cy={isMobile ? '44%' : '46%'} outerRadius={isMobile ? 64 : 108} label={renderTimeWindowLabel}>
+          <ResponsiveContainer width="100%" height={isMobile ? 320 : 400}>
+            <PieChart margin={{ top: isMobile ? 24 : 32, right: isMobile ? 28 : 140, left: isMobile ? 28 : 140, bottom: isMobile ? 16 : 20 }}>
+              <Pie data={threeHourData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={isMobile ? 64 : 90} label={renderTimeWindowLabel}>
                 {threeHourData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip />
-              <Legend verticalAlign="bottom" align="center" />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -151,7 +150,6 @@ export default function Analytics() {
                 {genderData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip />
-              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -165,7 +163,6 @@ export default function Analytics() {
                 {profileData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip />
-              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -179,7 +176,6 @@ export default function Analytics() {
                 {foodData.map((_, i) => <Cell key={i} fill={COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip />
-              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -193,7 +189,6 @@ export default function Analytics() {
                 {bloodData.map((_, i) => <Cell key={i} fill={[COLORS[1], COLORS[6]][i] ?? COLORS[i]} />)}
               </Pie>
               <Tooltip />
-              <Legend />
             </PieChart>
           </ResponsiveContainer>
         </div>
@@ -237,7 +232,6 @@ export default function Analytics() {
                 {jnvPieData.map((_, i) => <Cell key={i} fill={i === 10 ? '#94a3b8' : COLORS[i % COLORS.length]} />)}
               </Pie>
               <Tooltip />
-              {!isMobile && <Legend />}
             </PieChart>
           </ResponsiveContainer>
         </div>
