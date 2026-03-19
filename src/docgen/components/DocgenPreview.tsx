@@ -1,6 +1,6 @@
 import { useMemo, useRef, useState, useEffect, useCallback } from "react";
 import type { LetterTemplate } from "../types";
-import { renderTemplate } from "../placeholders";
+import { renderTemplate, postProcessInvoice } from "../placeholders";
 import { exportToPdf } from "../exportPdf";
 
 interface Props {
@@ -9,10 +9,13 @@ interface Props {
 }
 
 export default function DocgenPreview({ template, values }: Props) {
-  const renderedHtml = useMemo(
-    () => renderTemplate(template.html, values),
-    [template.html, values]
-  );
+  const renderedHtml = useMemo(() => {
+    let html = renderTemplate(template.html, values);
+    if (template.id === "bnp-invoice") {
+      html = postProcessInvoice(html, values);
+    }
+    return html;
+  }, [template.html, template.id, values]);
 
   const scalerRef = useRef<HTMLDivElement>(null);
   const pageRef = useRef<HTMLDivElement>(null);

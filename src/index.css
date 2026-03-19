@@ -1156,10 +1156,15 @@ textarea.docgen-form-input {
   font-size: 12pt;
   line-height: 1.7;
   color: #1a1a1a;
+  overflow: hidden;
 }
 
 .docgen-letter-page p {
   margin-bottom: 4px;
+}
+
+.docgen-letter-page table {
+  max-width: 100%;
 }
 
 .docgen-letter-page ul {
@@ -1420,6 +1425,10 @@ textarea.docgen-form-input {
     margin: 0 !important;
     box-shadow: none !important;
     background: #fff !important;
+  }
+
+  .docgen-letter-page thead th {
+    position: static !important;
   }
 
   @page {

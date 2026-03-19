@@ -1,0 +1,132 @@
+<!-- template: { "id": "bnp-invoice", "name": "Invoice", "title": "BNP_Invoice__#invoice_number#_" } -->
+<div class="letter-body" style="line-height: 1.6; max-width: 100%; overflow: hidden;">
+
+  <!-- Letterhead -->
+  <table style="width:100%; border-bottom: 3px solid #c0392b; padding-bottom: 10px; margin-bottom: 12px;">
+    <tr>
+      <td style="width: 100px; vertical-align: middle;">
+        <img src="/logo-bnp.png" alt="Bihar Navodaya Pariwar" style="width: 96px; height: 96px; object-fit: contain;" />
+      </td>
+      <td style="text-align: center; vertical-align: middle;">
+        <div style="font-size: 20pt; font-weight: 700; color: #1a1a1a;">Bihar Navodaya Pariwar</div>
+        <div style="font-size: 10pt; color: #555; margin-top: 2px;">
+          Flat #204, Aashirwad Residency, Behind Keshav Hospital, Saguna More, Patna, Bihar
+        </div>
+        <div style="font-size: 10pt; color: #555; margin-top: 2px;">
+          www.biharnavodayapariwar.com &nbsp;|&nbsp; biharnavodayapariwar@gmail.com
+        </div>
+      </td>
+      <td style="width: 80px;"></td>
+    </tr>
+  </table>
+
+  <div style="font-family: Consolas, 'Courier New', monospace;">
+
+  <!-- Invoice Header -->
+  <table style="width:100%; font-size: 10pt; color: #444; margin-bottom: 16px;">
+    <tr>
+      <td>Invoice No: {{invoice_number|Invoice Number}}</td>
+      <td style="text-align:right;">Date: {{TODAY}}</td>
+    </tr>
+  </table>
+
+  <!-- Title -->
+  <p style="text-align: center; margin-bottom: 12px;">
+    <strong style="font-size: 16pt; border-bottom: 2px solid #c0392b; padding-bottom: 2px;">
+      INVOICE
+    </strong>
+  </p>
+
+  <!-- Bill To (2nd Party) -->
+  <table style="width:100%; margin-bottom: 16px; font-size: 11pt;">
+    <tr>
+      <td style="vertical-align: top; width: 50%;">
+        <strong>Bill To:</strong><br/>
+        {{party_name|Party Name}}<br/>
+        {{party_address|Party Address}}
+      </td>
+    </tr>
+  </table>
+
+  <!-- Subject -->
+  <p style="font-size: 11pt; margin-bottom: 12px;">
+    <strong>Subject:</strong> {{subject|Invoice Subject}}
+  </p>
+
+  <!-- Items Table -->
+  <table style="width: 100%; border-collapse: collapse; font-size: 11pt; margin-bottom: 16px; table-layout: fixed;">
+    <thead>
+      <tr style="background: #c0392b; color: #fff;">
+        <th style="padding: 8px 16px 8px 8px; border: 1px solid #aaa; text-align: center; width: 50px; white-space: normal;">S.No.</th>
+        <th style="padding: 8px 12px; border: 1px solid #aaa; text-align: left; white-space: normal; word-wrap: break-word;">Item / Description</th>
+        <th style="padding: 8px 12px; border: 1px solid #aaa; text-align: right; width: 160px;">Amount (₹)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-invoice-row="1">
+        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">1</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_1|Item 1 Description}}</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_1|Item 1 Amount}}</td>
+      </tr>
+      <tr data-invoice-row="2" style="background: #f8f8f8;">
+        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">2</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_2|Item 2 Description}}</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_2|Item 2 Amount}}</td>
+      </tr>
+      <tr data-invoice-row="3">
+        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">3</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_3|Item 3 Description}}</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_3|Item 3 Amount}}</td>
+      </tr>
+      <tr data-invoice-row="4" style="background: #f8f8f8;">
+        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">4</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_4|Item 4 Description}}</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_4|Item 4 Amount}}</td>
+      </tr>
+      <tr data-invoice-row="5">
+        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">5</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_5|Item 5 Description}}</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_5|Item 5 Amount}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background: #f0f0f0; font-weight: 700;">
+        <td colspan="2" style="padding: 8px 12px; border: 1px solid #aaa; text-align: right;">Total</td>
+        <td style="padding: 8px 12px; border: 1px solid #aaa; text-align: right;"><span data-invoice-total></span></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <!-- Amount in Words -->
+  <p style="font-size: 11pt; margin-bottom: 16px;">
+    <strong>Amount in Words:</strong> {{amount_in_words|Amount in Words}} only.
+  </p>
+
+  <!-- Payment Details -->
+  <div style="font-size: 10.5pt; margin-bottom: 20px;">
+    <p style="margin-bottom: 2px;"><strong>Payment Details:</strong></p>
+    <p style="margin: 0;">UPI: biharnavodayapariwar@sbi</p>
+    <p style="margin: 0;">Account Name: Bihar Navodaya Pariwar</p>
+    <p style="margin: 0;">Account Number: 43636412130</p>
+    <p style="margin: 0;">IFSC Code: SBIN0004232</p>
+  </div>
+
+  <!-- Notes -->
+  <p data-invoice-notes style="font-size: 10.5pt; margin-bottom: 24px;">
+    <strong>Note:</strong> {{notes|Additional Notes|textarea}}
+  </p>
+
+  <!-- Signature -->
+  <table style="width: 100%; margin-top: 40px; font-size: 11pt;">
+    <tr>
+      <td style="text-align: right; vertical-align: top; width: 100%;">
+        <div style="margin-bottom: 4px;">For Bihar Navodaya Pariwar,</div>
+        <br/>
+        <div><strong>President</strong></div>
+      </td>
+    </tr>
+  </table>
+
+  </div>
+
+</div>
