@@ -5,7 +5,8 @@ import { extractPlaceholders, renderTemplate } from '../docgen/placeholders'
 import type { LetterTemplate } from '../docgen/types'
 
 const cardTemplates = loadCardTemplates()
-const CARD_SIZE = 600
+const DEFAULT_CARD_W = 600
+const DEFAULT_CARD_H = 600
 
 export default function CardGen() {
   const [selectedTemplate, setSelectedTemplate] = useState<LetterTemplate | null>(null)
@@ -14,11 +15,14 @@ export default function CardGen() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const [scale, setScale] = useState(1)
 
+  const cardW = selectedTemplate?.width ?? DEFAULT_CARD_W
+  const cardH = selectedTemplate?.height ?? DEFAULT_CARD_H
+
   const updateScale = useCallback(() => {
     if (!wrapperRef.current) return
     const available = wrapperRef.current.clientWidth - 32
-    setScale(available < CARD_SIZE ? available / CARD_SIZE : 1)
-  }, [])
+    setScale(available < cardW ? available / cardW : 1)
+  }, [cardW])
 
   useEffect(() => {
     updateScale()
@@ -94,11 +98,16 @@ export default function CardGen() {
 
         <div className="cardgen-preview-area" ref={wrapperRef}>
           {selectedTemplate ? (
-            <div style={scale < 1 ? { width: CARD_SIZE * scale, height: CARD_SIZE * scale } : undefined}>
+            <div style={scale < 1 ? { width: cardW * scale, height: cardH * scale } : undefined}>
               <div
                 ref={cardRef}
                 className="congrats-card"
-                style={scale < 1 ? { transform: `scale(${scale})`, transformOrigin: 'top left' } : undefined}
+                style={{
+                  width: cardW,
+                  height: cardH,
+                  aspectRatio: 'auto',
+                  ...(scale < 1 ? { transform: `scale(${scale})`, transformOrigin: 'top left' } : {}),
+                }}
               >
                 <div style={{ width: '100%', height: '100%' }} dangerouslySetInnerHTML={{ __html: renderedHtml }} />
               </div>

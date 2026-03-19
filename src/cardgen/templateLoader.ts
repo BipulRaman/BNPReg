@@ -19,9 +19,9 @@ export function loadCardTemplates(): LetterTemplate[] {
     }
 
     try {
-      const meta: { id: string; name: string; title?: string } = JSON.parse(metaMatch[1]);
+      const meta: { id: string; name: string; title?: string; width?: number; height?: number } = JSON.parse(metaMatch[1]);
       const html = raw.replace(/<!--\s*template:[\s\S]*?-->\s*/, "");
-      templates.push({ id: meta.id, name: meta.name, title: meta.title, html });
+      templates.push({ id: meta.id, name: meta.name, title: meta.title, html, width: meta.width, height: meta.height });
     } catch {
       console.warn(`Skipping ${path}: invalid template metadata JSON.`);
     }

@@ -3,6 +3,8 @@ export interface LetterTemplate {
   name: string;
   title?: string;
   html: string;
+  width?: number;
+  height?: number;
 }
 
 export interface PlaceholderField {
