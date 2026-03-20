@@ -23,6 +23,13 @@ const defaultColumns: { key: keyof Registration; label: string }[] = [
   { key: 'donationAmount', label: 'Donation' },
 ]
 
+function escapeCsvCell(value: string): string {
+  if (value.includes(',') || value.includes('"') || value.includes('\n')) {
+    return '"' + value.replace(/"/g, '""') + '"'
+  }
+  return value
+}
+
 export default function Registrations() {
   const { data, loading, error, refresh } = useCSVData()
   const [search, setSearch] = useState('')
@@ -33,6 +40,10 @@ export default function Registrations() {
   const [columns, setColumns] = useState(defaultColumns)
   const dragCol = useRef<number | null>(null)
   const dragOverCol = useRef<number | null>(null)
+  const [showExport, setShowExport] = useState(false)
+  const [exportCols, setExportCols] = useState<Set<keyof Registration>>(
+    () => new Set(defaultColumns.map(c => c.key))
+  )
 
   const handleDragStart = useCallback((e: React.DragEvent, idx: number) => {
     dragCol.current = idx
@@ -110,6 +121,32 @@ export default function Registrations() {
     else { setSortCol(col); setSortAsc(true) }
   }
 
+  const toggleExportCol = (key: keyof Registration) => {
+    setExportCols(prev => {
+      const next = new Set(prev)
+      if (next.has(key)) next.delete(key); else next.add(key)
+      return next
+    })
+  }
+
+  const handleExportCsv = () => {
+    const selectedCols = defaultColumns.filter(c => exportCols.has(c.key))
+    if (selectedCols.length === 0) return
+    const header = selectedCols.map(c => escapeCsvCell(c.label)).join(',')
+    const rows = sortedData.map(r =>
+      selectedCols.map(c => escapeCsvCell(String(r[c.key] ?? ''))).join(',')
+    )
+    const csv = [header, ...rows].join('\n')
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' })
+    const url = URL.createObjectURL(blob)
+    const a = document.createElement('a')
+    a.href = url
+    a.download = `registrations_${new Date().toISOString().slice(0, 10)}.csv`
+    a.click()
+    URL.revokeObjectURL(url)
+    setShowExport(false)
+  }
+
   if (loading) {
     return (
       <div className="page">
@@ -136,9 +173,14 @@ export default function Registrations() {
     <div className="page">
       <div className="page-header">
         <h2>Registrations ({filteredData.length})</h2>
-        <button className="refresh-btn" onClick={refresh} disabled={loading}>
-          {loading ? '↻ Refreshing…' : '↻ Refresh'}
-        </button>
+        <div style={{ display: 'flex', gap: '8px' }}>
+          <button className="refresh-btn" onClick={() => setShowExport(true)}>
+            ⬇ Export CSV
+          </button>
+          <button className="refresh-btn" onClick={refresh} disabled={loading}>
+            {loading ? '↻ Refreshing…' : '↻ Refresh'}
+          </button>
+        </div>
       </div>
 
       <div className="table-container">
@@ -201,6 +243,50 @@ export default function Registrations() {
           </table>
         </div>
       </div>
+
+      {showExport && (
+        <div className="modal-overlay" onClick={() => setShowExport(false)}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setShowExport(false)}>&times;</button>
+            <h2>Export CSV</h2>
+            <p style={{ fontSize: '0.85rem', color: '#666', marginBottom: '12px' }}>
+              {filteredData.length} rows (filtered) &middot; {exportCols.size} columns selected
+            </p>
+            <div style={{ display: 'flex', gap: '8px', marginBottom: '12px' }}>
+              <button
+                className="refresh-btn"
+                style={{ fontSize: '0.78rem', padding: '4px 10px' }}
+                onClick={() => setExportCols(new Set(defaultColumns.map(c => c.key)))}
+              >Select All</button>
+              <button
+                className="refresh-btn"
+                style={{ fontSize: '0.78rem', padding: '4px 10px' }}
+                onClick={() => setExportCols(new Set())}
+              >Select None</button>
+            </div>
+            <div className="export-col-grid">
+              {defaultColumns.map(col => (
+                <label key={col.key} className="export-col-item">
+                  <input
+                    type="checkbox"
+                    checked={exportCols.has(col.key)}
+                    onChange={() => toggleExportCol(col.key)}
+                  />
+                  {col.label}
+                </label>
+              ))}
+            </div>
+            <button
+              className="refresh-btn"
+              style={{ marginTop: '16px', width: '100%', padding: '10px', fontWeight: 600 }}
+              onClick={handleExportCsv}
+              disabled={exportCols.size === 0}
+            >
+              ⬇ Download CSV ({exportCols.size} columns)
+            </button>
+          </div>
+        </div>
+      )}
 
       {selectedPerson && (
         <div className="modal-overlay" onClick={() => setSelectedPerson(null)}>
