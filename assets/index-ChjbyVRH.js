@@ -1898,7 +1898,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   <!-- Donor info — centered in the large empty space -->
   <div style="
     position: absolute;
-    top: 33.5%;
+    top: 34.5%;
     left: 0;
     width: 100%;
     padding: 10px 16px 18px;
@@ -1941,7 +1941,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
 
     <!-- Donation Amount -->
     <p style="
-      margin: 0 0 12px;
+      margin: 0 0 0px;
       font-size: 34px; font-weight: 800;
       color: #4233fb;
       letter-spacing: 0.5px;
