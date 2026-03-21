@@ -1889,13 +1889,11 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   position: relative;
   overflow: hidden;
   font-family: Calibri, sans-serif;
+  background-image: url('/brandings/TYS.jpeg');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
 ">
-  <!-- Background image — the full poster -->
-  <img src="/brandings/TYS.jpeg" alt="" style="
-    position: absolute; top: 0; left: 0;
-    width: 100%; height: 100%;
-    object-fit: cover;
-  " />
 
   <!-- Donor info — centered in the large empty space -->
   <div style="
