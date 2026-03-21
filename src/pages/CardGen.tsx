@@ -49,7 +49,7 @@ async function inlineImages(html: string): Promise<string> {
 
   // Replace each URL with its data URL
   for (const [url, dataUrl] of entries) {
-    if (dataUrl) html = html.replaceAll(url, dataUrl)
+    if (dataUrl) html = html.split(url).join(dataUrl)
   }
   return html
 }
