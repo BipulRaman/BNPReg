@@ -1891,77 +1891,72 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
 ">
   <!-- Background image — the full poster -->
-  <img src="/brandings/TY.jpeg" alt="" style="
+  <img src="/brandings/TYS.jpeg" alt="" style="
     position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
     object-fit: cover;
   " />
 
-  <!-- Donor info overlay — positioned in the right-side empty space -->
+  <!-- Donor info — centered in the large empty space -->
   <div style="
     position: absolute;
-    top: 34%;
-    right: 6%;
-    width: 45%;
-    background: rgba(0, 0, 0, 0.6);
-    border: 1.5px solid rgba(255, 215, 0, 0.45);
-    border-radius: 10px;
-    padding: 18px 16px;
+    top: 33%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72%;
+    padding: 16px 16px;
     text-align: center;
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+    border: 2px solid #1a237e;
+    border-radius: 10px;
   ">
     <!-- Thank You heading -->
     <p style="
-      margin: 0 0 4px;
-      font-size: 22px; font-weight: 700;
-      color: #ffd700;
+      margin: 0 0 6px;
+      font-size: 34px; font-weight: 800;
+      color: #d32f2f;
       font-family: Georgia, 'Times New Roman', serif;
-      letter-spacing: 1.5px;
-      text-shadow: 0 2px 8px rgba(255, 215, 0, 0.25);
+      letter-spacing: 2px;
     ">Thank You</p>
 
     <!-- Decorative divider -->
-    <div style="display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:8px;">
-      <div style="width:30px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.6));"></div>
-      <div style="width:5px;height:5px;border:1px solid #ffd700;transform:rotate(45deg);"></div>
-      <div style="width:30px;height:1px;background:linear-gradient(90deg,rgba(255,215,0,0.6),transparent);"></div>
+    <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px;">
+      <div style="width:50px;height:1.5px;background:linear-gradient(90deg,transparent,#c62828);"></div>
+      <div style="width:7px;height:7px;border:1.5px solid #c62828;transform:rotate(45deg);"></div>
+      <div style="width:50px;height:1.5px;background:linear-gradient(90deg,#c62828,transparent);"></div>
     </div>
 
     <!-- Name -->
     <p style="
-      margin: 0 0 3px;
-      font-size: 20px; font-weight: 700;
-      color: #ffffff;
-      text-shadow: 0 1px 6px rgba(0,0,0,0.4);
+      margin: 0 0 6px;
+      font-size: 28px; font-weight: 700;
+      color: #b71c1c;
       word-break: break-word;
     ">{{name|Name}}</p>
 
     <!-- JNV + Batch -->
     <p style="
-      margin: 0 0 6px;
-      font-size: 13px; color: rgba(255,255,255,0.75);
-      letter-spacing: 0.3px;
+      margin: 0 0 8px;
+      font-size: 16px; color: #5d4037;
+      letter-spacing: 0.5px; font-weight: 500;
     ">{{jnv|JNV Name}} {{batch|Batch}}</p>
 
     <!-- Donation Amount -->
     <p style="
-      margin: 0;
-      font-size: 18px; font-weight: 700;
-      color: #ffd700;
+      margin: 0 0 10px;
+      font-size: 24px; font-weight: 800;
+      color: #2e7d32;
       letter-spacing: 0.5px;
-      text-shadow: 0 1px 6px rgba(255, 215, 0, 0.2);
     ">&#8377; {{amount|Amount}}</p>
 
     <!-- Appreciation text -->
     <p style="
-      margin: 8px 0 0;
-      font-size: 11px; color: rgba(255,255,255,0.75);
+      margin: 0 auto;
+      font-size: 14px; color: #4e342e;
       line-height: 1.6;
+      max-width: 400px;
     ">
       Your generous donation towards
-      <span style="color: #ffd700; font-weight: 700;">Samagam 5.0</span>
+      <span style="color: #c62828; font-weight: 700;">Samagam 5.0</span>
       is deeply appreciated. Your wholehearted support strengthens the
       Navodayan community and plays a vital role in making this gathering a grand success.
     </p>
