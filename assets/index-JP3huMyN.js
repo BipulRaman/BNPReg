@@ -372,10 +372,7 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
   <!-- Recipient -->
   <p><strong>To,</strong></p>
   <p>{{recipient|Recipient}}</p>
-  <p>{{recipient_designation|Recipient Designation}}</p>
-  <p>{{recipient_location|Recipient Location}}</p>
-
-  <br/>
+  <p>{{recipient_details|Recipient Details}}</p>
 
   <!-- Subject -->
   <p style="text-align: center; margin-bottom: 4px;">
@@ -427,8 +424,6 @@ In order to be iterable, non-array objects must have a [Symbol.iterator]() metho
     We sincerely hope you will honour us with your presence and make this gathering a
     grand success.
   </p>
-
-  <br/>
 
   <!-- Signature Block -->
   <p>With warm regards,</p>
