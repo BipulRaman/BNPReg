@@ -8,8 +8,8 @@
   },
   "users": {
     "mail@bipul.in": ["admin"],
-    "pkranjan85@gmail.com": ["admin"],
-    "gagangaurav13@gmail.com": ["admin"],
+    "pkranjan85@gmail.com": ["cardgen"],
+    "gagangaurav13@gmail.com": ["cardgen"],
     "bipulraman@gmail.com": ["cardgen"],
     "khursheedalam36@gmail.com": ["cardgen"]
   },
