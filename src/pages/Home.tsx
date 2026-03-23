@@ -3,35 +3,32 @@ import Card from '../components/Card'
 export default function Home() {
   return (
     <div className="page">
-      <Card title="Welcome to Samagam 5.0" emoji="🙏">
+      <Card title="Bihar Navodayan Samagam 2026" emoji="🙏">
         <p>
-          Samagam is the collaboration platform for <strong>Bihar Navodaya Pariwar</strong> — 
-          a unified hub for managing event registrations, tracking analytics, and generating 
-          official documents for the Bihar Navodayan Samagam 2026.
+          On behalf of <strong>Bihar Navodaya Pariwar</strong>, we cordially welcome you
+          to the <strong>Bihar Navodayan Samagam 2026</strong> — a grand state-level
+          gathering of Jawahar Navodaya Vidyalaya alumni from across the country.
+        </p>
+        <p style={{ marginTop: '0.75rem' }}>
+          The Samagam is a platform to reconnect with fellow Navodayans, celebrate shared
+          achievements, and foster meaningful collaborations that strengthen our vibrant
+          community.
         </p>
       </Card>
 
-      <Card title="Registrations" emoji="📋">
-        <p>
-          View and manage all event registrations in a searchable, sortable data table. 
-          Filter by name, JNV district, location, or any other field. Click on any 
-          registrant to view their complete details.
-        </p>
+      <Card title="Event Details" emoji="📅">
+        <ul style={{ listStyle: 'none', padding: 0, margin: 0, lineHeight: '1.8' }}>
+          <li><strong>Date:</strong> April 5, 2026</li>
+          <li><strong>Venue:</strong> Urja Auditorium Campus, Shastri Nagar, Patna</li>
+          <li><strong>Highlights:</strong> Alumni Meet, Musical Performance, Blood Donation &amp; Networking</li>
+        </ul>
       </Card>
 
-      <Card title="Analytics Dashboard" emoji="📊">
+      <Card title="What to Expect" emoji="🎉">
         <p>
-          Explore live analytics powered by registration data — including gender distribution, 
-          food preferences, participation roles, JNV district breakdown, donation summaries, 
-          registration timeline, and more through interactive charts.
-        </p>
-      </Card>
-
-      <Card title="Document Generator" emoji="📄">
-        <p>
-          Generate official documents such as invitation letters using customizable templates. 
-          Fill in recipient details, preview the letter in real-time with A4 layout, and 
-          export to PDF directly from your browser.
+          The event will feature cultural programmes, felicitation of distinguished alumni,
+          networking sessions, and much more. Arrangements for accommodation and local
+          assistance will be made for guests traveling from other cities.
         </p>
       </Card>
     </div>

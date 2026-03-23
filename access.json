@@ -9,7 +9,9 @@
   "users": {
     "mail@bipul.in": ["admin"],
     "pkranjan85@gmail.com": ["admin"],
-    "gagangaurav13@gmail.com": ["admin"]
+    "gagangaurav13@gmail.com": ["admin"],
+    "bipulraman@gmail.com": ["cardgen"],
+    "khursheedalam36@gmail.com": ["cardgen"]
   },
   "defaultRole": ""
 }
