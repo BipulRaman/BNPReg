@@ -1,0 +1,219 @@
+<!-- template: { "id": "thank-you-samagam5-glass", "name": "Thank You [NEW]", "title": "ThankYou_Samagam5___#name#_", "width": 540, "height": 760 } -->
+<div style="
+  width: 100%; height: 100%;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Segoe UI Variable Display', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #f3f3f3;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 120, 212, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(18, 192, 192, 0.15) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(0, 120, 212, 0.1) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(18, 192, 192, 0.1) 0px, transparent 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #1a1a1a;
+">
+    <!-- Material Layers (Mica-like) -->
+    <div style="
+    position: absolute;
+    width: 140%;
+    height: 140%;
+    top: -20%;
+    left: -20%;
+    background: url('https://fabricweb.azureedge.net/fabric-website/assets/images/mica/mica-light.png');
+    background-size: cover;
+    opacity: 0.05;
+    pointer-events: none;
+  "></div>
+
+    <!-- Primary Glass Card -->
+    <div style="
+    width: calc(100% - 24px);
+    height: calc(100% - 24px);
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(40px) saturate(180%);
+    -webkit-backdrop-filter: blur(40px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 16px;
+    box-shadow: 
+      0 2px 4px rgba(0,0,0,0.02),
+      0 12px 32px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    padding: 32px;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+  ">
+        <!-- Heart of the Card (Occupying top 40%) -->
+        <div style="
+      height: 260px; 
+      display: flex; 
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center; 
+      text-align: center;
+      margin-bottom: 10px;
+    ">
+
+            <div style="margin: 0;">
+                <h3
+                    style="margin: 0; font-size: 42px; font-weight: 700; color: #0078d4; letter-spacing: -1px; font-style: normal !important; line-height: 1.1;">
+                    {{name|Name}}</h3>
+                <p style="margin: 6px 0 0; font-size: 18px; color: #606060; font-weight: 600;">
+                    <span style="opacity: 0.8; font-style: normal !important;">{{jnv|JNV Name}}</span>
+                    <span style="opacity: 0.8; font-style: normal !important; margin-left: 8px;">{{batch|Batch}}</span>
+                </p>
+            </div>
+
+            <div style="
+        margin: 8px 0; 
+        font-size: 22px; 
+        font-weight: 600; 
+        color: #605e5c;
+        font-family: 'Segoe UI Variable Display', 'Segoe UI', sans-serif;
+      ">के द्वारा</div>
+
+            <!-- Amount Pill -->
+            <div style="
+        background: rgba(255, 255, 255, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        padding: 5px 20px;
+        border-radius: 8px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+        display: inline-flex;
+        align-items: baseline;
+        gap: 12px;
+        margin-bottom: 32px;
+      ">
+                <span style="
+          font-size: 38px; 
+          font-weight: 700; 
+          color: #1c3714; 
+          font-style: normal !important;
+          font-family: 'Segoe UI Variable Display', 'Segoe UI', sans-serif;
+        ">&#8377; {{amount|Amount}}</span>
+            </div>
+
+            <div style="margin: 0;">
+                <h2 style="
+          margin: 0; 
+          font-size: 24px; 
+          font-weight: 700; 
+          color: #5c2d91; 
+          letter-spacing: -0.2px;
+          line-height: 1.1;
+          font-family: 'Segoe UI Variable Display', 'Segoe UI', sans-serif;
+
+        ">के सहयोग के लिए हार्दिक आभार 🙏</h2>
+            </div>
+        </div>
+
+        <!-- Sponsors & Footer Material -->
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06);">
+
+            <div style="display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center;">
+                <!-- Event Name & Logo Row -->
+                <div style="display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 24px;">
+                        <div style="
+              width: 72px; height: 72px; 
+              border-radius: 50%; 
+              background: #ffffff;
+              box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+              display: flex; align-items: center; justify-content: center;
+              padding: 5px;
+              border: 1px solid rgba(255,255,255,0.8);
+              flex-shrink: 0;
+            ">
+                            <img src="/logo-bnp.png" alt="BNP"
+                                style="width: 100%; height: 100%; border-radius: 50%; object-fit: contain;" />
+                        </div>
+                        <h4 style="
+              margin: 0; 
+              text-transform: uppercase; 
+              letter-spacing: 0.5px; 
+              line-height: 1.1;
+              text-align: left;
+              font-family: 'Segoe UI Variable Display', 'Segoe UI', sans-serif;
+            ">
+                            <span style="font-size: 20px; font-weight: 500; color: #cf2d00;">BIHAR
+                                NAVODAYAN</span><br />
+                            <span style="font-size: 28px; font-weight: 700; color: #1c3714;">SAMAGAM 5.0</span>
+                        </h4>
+                    </div>
+
+                    <!-- Event Details (Fresh New Line) -->
+                    <div style="
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-size: 14px; 
+            font-weight: 600; 
+            color: #5c2d91; 
+            font-family: 'Segoe UI Variable Text', 'Segoe UI', sans-serif;
+            background: rgba(92, 45, 145, 0.08);
+            padding: 6px 20px;
+            border-radius: 100px;
+            border: 1px solid rgba(92, 45, 145, 0.15);
+            backdrop-filter: blur(5px);
+          ">
+                        <span>Urja Auditorium, Patna</span>
+                        <div style="width: 4px; height: 4px; border-radius: 50%; background: #5c2d91; opacity: 0.6;">
+                        </div>
+                        <span style="color: #5c2d91;">05 April 2026</span>
+                    </div>
+                </div>
+
+                <!-- Main Sponsor Row -->
+                <div style="display: flex; flex-direction: column; gap: 6px; align-items: center;">
+                    <p
+                        style="margin: 0; font-size: 8px; font-weight: 700; color: #a0a0a0; text-transform: uppercase; letter-spacing: 1.2px;">
+                        Title Sponsor</p>
+                    <div style="
+            background: rgba(0, 0, 0, 0.03); 
+            padding: 4px 16px; 
+            border-radius: 6px; 
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(8px);
+          ">
+                        <img src="/brandings/sponser_1.jpeg" alt="Main Sponsor"
+                            style="height: 50px; max-width: 200px; object-fit: contain; filter: brightness(0.9) contrast(1.15);" />
+                    </div>
+                </div>
+
+                <!-- Co-Sponsors Row -->
+                <div style="display: flex; flex-direction: column; gap: 10px; align-items: center; width: 100%;">
+                    <p
+                        style="margin: 0; font-size: 7.5px; font-weight: 700; color: #b0b0b0; text-transform: uppercase; letter-spacing: 0.8px;">
+                        Co-Sponsors</p>
+                    <div
+                        style="display: flex; flex-direction: column; gap: 14px; align-items: center; background: rgba(0, 0, 0, 0.03); padding: 8px 12px; border-radius: 8px; width: fit-content; border: 1px solid rgba(0, 0, 0, 0.05); backdrop-filter: blur(8px);">
+                        <!-- Row 1 -->
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 18px;">
+                            <img src="/brandings/co_sponser_1.jpeg" alt="S1"
+                                style="height: 40px; filter: brightness(0.9) contrast(1.15);" />
+                            <div style="width: 1px; height: 20px; background: rgba(0,0,0,0.05);"></div>
+                            <img src="/brandings/co_sponser_2.jpeg" alt="S2"
+                                style="height: 40px; filter: brightness(0.9) contrast(1.15);" />
+                            <div style="width: 1px; height: 20px; background: rgba(0,0,0,0.05);"></div>
+                            <img src="/brandings/co_sponser_3.jpeg" alt="S3"
+                                style="height: 40px; filter: brightness(0.9) contrast(1.15);" />
+                        </div>
+                        <!-- Row 2 -->
+                        <div style="display: flex; align-items: center; justify-content: center; gap: 18px;">
+                            <img src="/brandings/co_sponser_4.jpeg" alt="S4"
+                                style="height: 40px; filter: brightness(0.9) contrast(1.15);" />
+                            <div style="width: 1px; height: 20px; background: rgba(0,0,0,0.05);"></div>
+                            <img src="/brandings/co_sponser_5.jpeg" alt="S5"
+                                style="height: 40px; filter: brightness(0.9) contrast(1.15);" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
