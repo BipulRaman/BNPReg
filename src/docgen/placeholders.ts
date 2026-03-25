@@ -22,7 +22,7 @@ export function extractPlaceholders(html: string): PlaceholderField[] {
     const label = match[2];
     const rawType = match[3] ?? "text";
     const type = (
-      ["text", "date", "textarea"].includes(rawType) ? rawType : "text"
+      ["text", "date", "textarea", "markdown"].includes(rawType) ? rawType : "text"
     ) as PlaceholderField["type"];
 
     fields.push({ key, label, type });
@@ -62,7 +62,7 @@ export function renderTemplate(
     (_match, key: string, label: string, type?: string) => {
       const val = values[key];
       if (!val) return `<span class="placeholder-empty">[${escapeHtml(label)}]</span>`;
-      if (type === "textarea") return marked.parse(val) as string;
+      if (type === "textarea" || type === "markdown") return marked.parse(val) as string;
       return escapeHtml(val);
     }
   );

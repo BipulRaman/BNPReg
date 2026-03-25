@@ -10,5 +10,5 @@ export interface LetterTemplate {
 export interface PlaceholderField {
   key: string;
   label: string;
-  type: "text" | "date" | "textarea";
+  type: "text" | "date" | "textarea" | "markdown";
 }

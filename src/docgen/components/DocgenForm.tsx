@@ -8,13 +8,13 @@ interface Props {
   onChange: (values: Record<string, string>) => void;
 }
 
-const MD_ACTIONS = [
+const MD_ACTIONS: { label: string; md: string; style?: string; block?: boolean }[] = [
   { label: "B", md: "**", style: "font-weight:700" },
   { label: "I", md: "*", style: "font-style:italic" },
   { label: "H", md: "### ", block: true },
   { label: "•", md: "- ", block: true },
   { label: "1.", md: "1. ", block: true },
-] as const;
+];
 
 function applyMd(
   el: HTMLTextAreaElement,
@@ -67,7 +67,7 @@ export default function DocgenForm({ template, values, onChange }: Props) {
             {field.label}
           </label>
 
-          {field.type === "textarea" ? (
+          {field.type === "markdown" ? (
             <>
               <div className="md-toolbar">
                 {MD_ACTIONS.map((a) => (
@@ -94,6 +94,14 @@ export default function DocgenForm({ template, values, onChange }: Props) {
                 onChange={(e) => handleChange(field.key, e.target.value)}
               />
             </>
+          ) : field.type === "textarea" ? (
+            <textarea
+              id={`dg-${field.key}`}
+              className="docgen-form-input"
+              rows={3}
+              value={values[field.key] ?? ""}
+              onChange={(e) => handleChange(field.key, e.target.value)}
+            />
           ) : (
             <input
               id={`dg-${field.key}`}
