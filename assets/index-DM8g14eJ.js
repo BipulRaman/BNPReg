@@ -2058,7 +2058,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
     </p>
   </div>
 </div>
-`,wQ=`<!-- template: { "id": "thank-you-samagam5-glass", "name": "Thank You (NEW)", "title": "ThankYou_Samagam5___#name#_", "width": 540, "height": 760 } -->
+`,wQ=`<!-- template: { "id": "thank-you-samagam5-glass", "name": "Thank You (NEW)", "title": "ThankYou__#name#_", "width": 540, "height": 760 } -->
 <div style="
   width: 100%; height: 100%;
   position: relative;
@@ -2172,7 +2172,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
         </div>
 
         <!-- Sponsors & Footer Material -->
-        <div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06);">
+        <div style="margin-top: 20px; padding-top: 16px; border-top: 2px solid rgba(0, 120, 212, 0.12);">
 
             <div style="display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center;">
                 <!-- Event Name & Logo Row -->
