@@ -12,3 +12,8 @@ export interface PlaceholderField {
   label: string;
   type: "text" | "date" | "textarea" | "markdown";
 }
+
+export interface RowGroup {
+  group: string;
+  fields: { key: string; label: string; type: PlaceholderField["type"] }[];
+}

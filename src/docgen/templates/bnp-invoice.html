@@ -63,43 +63,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr data-invoice-row="1">
-        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">1</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_1|Item 1 Description}}</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_1|Item 1 Amount}}</td>
+      <tpl-rows group="items">
+      <tr>
+        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;"><tpl-n /></td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item|Item Description}}</td>
+        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;"><tpl-val group="items" currency>{{amount|Amount}}</tpl-val></td>
       </tr>
-      <tr data-invoice-row="2" style="background: #f8f8f8;">
-        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">2</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_2|Item 2 Description}}</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_2|Item 2 Amount}}</td>
-      </tr>
-      <tr data-invoice-row="3">
-        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">3</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_3|Item 3 Description}}</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_3|Item 3 Amount}}</td>
-      </tr>
-      <tr data-invoice-row="4" style="background: #f8f8f8;">
-        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">4</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_4|Item 4 Description}}</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_4|Item 4 Amount}}</td>
-      </tr>
-      <tr data-invoice-row="5">
-        <td style="padding: 8px 16px 8px 8px; border: 1px solid #ccc; text-align: center;">5</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; white-space: normal; word-wrap: break-word;">{{item_5|Item 5 Description}}</td>
-        <td style="padding: 8px 12px; border: 1px solid #ccc; text-align: right;">{{amount_5|Item 5 Amount}}</td>
-      </tr>
+      </tpl-rows>
     </tbody>
     <tfoot>
       <tr style="background: #f0f0f0; font-weight: 700;">
         <td colspan="2" style="padding: 8px 12px; border: 1px solid #aaa; text-align: right;">Total</td>
-        <td style="padding: 8px 12px; border: 1px solid #aaa; text-align: right;"><span data-invoice-total></span></td>
+        <td style="padding: 8px 12px; border: 1px solid #aaa; text-align: right;"><tpl-sum group="items" /></td>
       </tr>
     </tfoot>
   </table>
 
   <!-- Amount in Words -->
   <p style="font-size: 11pt; margin-bottom: 16px;">
-    <strong>Amount in Words:</strong> {{amount_in_words|Amount in Words}} only.
+    <strong>Amount in Words:</strong> <tpl-sum group="items" words /> only.
   </p>
 
   <!-- Payment Details -->
@@ -112,16 +94,17 @@
   </div>
 
   <!-- Notes -->
-  <p data-invoice-notes style="font-size: 10.5pt; margin-bottom: 24px;">
+  <tpl-if key="notes">
+  <div style="font-size: 10.5pt; margin-bottom: 0px;">
     <strong>Note:</strong> {{notes|Additional Notes|textarea}}
-  </p>
+  </div>
+  </tpl-if>
 
   <!-- Signature -->
   <table style="width: 100%; margin-top: 40px; font-size: 11pt;">
     <tr>
       <td style="text-align: right; vertical-align: top; width: 100%;">
-        <div style="margin-bottom: 4px;">For Bihar Navodaya Pariwar,</div>
-        <br/>
+        <div style="margin-bottom: 4px;">For Bihar Navodaya Pariwar,</div>        
         <div><strong>President</strong></div>
       </td>
     </tr>

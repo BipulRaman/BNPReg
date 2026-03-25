@@ -1153,6 +1153,91 @@ textarea.docgen-form-input {
   background: var(--border);
 }
 
+/* Row Groups */
+.docgen-row-group {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px;
+  margin-top: 4px;
+}
+
+.docgen-row-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.docgen-row-group-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.docgen-row-btn {
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--bg-card, #fff);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+
+.docgen-row-btn:hover:not(:disabled) {
+  background: var(--border);
+}
+
+.docgen-row-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.docgen-row-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.docgen-row-num {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  min-width: 18px;
+  text-align: center;
+}
+
+.docgen-row-fields {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+}
+
+.docgen-row-fields .docgen-form-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.docgen-row-add {
+  width: 100%;
+  padding: 5px;
+  margin-top: 4px;
+  border: 1px dashed var(--border);
+  border-radius: 4px;
+  background: none;
+  font-size: 0.82rem;
+  color: var(--text-light);
+  cursor: pointer;
+}
+
+.docgen-row-add:hover {
+  background: var(--bg-card, #f5f5f5);
+  color: var(--text);
+}
+
 /* Preview Panel */
 .docgen-preview-panel {
   flex: 1;
