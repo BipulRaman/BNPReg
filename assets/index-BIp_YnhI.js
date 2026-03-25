@@ -2058,7 +2058,7 @@ Please report this to https://github.com/markedjs/marked.`,e){let r="<p>An error
     </p>
   </div>
 </div>
-`,wQ=`<!-- template: { "id": "thank-you-samagam5-glass", "name": "Thank You [NEW]", "title": "ThankYou_Samagam5___#name#_", "width": 540, "height": 760 } -->
+`,wQ=`<!-- template: { "id": "thank-you-samagam5-glass", "name": "Thank You (NEW)", "title": "ThankYou_Samagam5___#name#_", "width": 540, "height": 760 } -->
 <div style="
   width: 100%; height: 100%;
   position: relative;
