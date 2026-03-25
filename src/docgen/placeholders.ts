@@ -1,4 +1,7 @@
+import { marked } from "marked";
 import type { PlaceholderField } from "./types";
+
+marked.setOptions({ async: false, breaks: true });
 
 /**
  * Extracts unique placeholder fields from a template HTML string.
@@ -55,11 +58,12 @@ export function renderTemplate(
   return html
     .replace(/\{\{TODAY\}\}/g, formatToday())
     .replace(
-    /\{\{(\w+)\|([^|}]+)(?:\|\w+)?\}\}/g,
-    (_match, key: string, label: string) => {
+    /\{\{(\w+)\|([^|}]+)(?:\|(\w+))?\}\}/g,
+    (_match, key: string, label: string, type?: string) => {
       const val = values[key];
       if (!val) return `<span class="placeholder-empty">[${escapeHtml(label)}]</span>`;
-      return escapeHtml(val).replace(/\n/g, "<br/>");
+      if (type === "textarea") return marked.parse(val) as string;
+      return escapeHtml(val);
     }
   );
 }
