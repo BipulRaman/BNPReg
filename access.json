@@ -1,7 +1,7 @@
 {
   "roles": {
     "admin": ["home", "registrations", "analytics", "docgen", "cardgen"],
-    "home": ["home"],
+    "home": ["home", "cardgen"],
     "registration": ["home", "registrations", "analytics"],
     "docgen": ["home", "docgen"],
     "cardgen": ["home", "cardgen"]
