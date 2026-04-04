@@ -1595,8 +1595,145 @@ textarea.docgen-form-input {
     position: static !important;
   }
 
-  @page {
-    size: letter;
-    margin: 12mm 0;
+  .jnvreport-toolbar {
+    display: none !important;
   }
+
+  .jnvreport-page {
+    padding: 0 !important;
+  }
+
+  .jnvreport-preview {
+    box-shadow: none !important;
+    border: none !important;
+    background: #fff !important;
+    overflow: visible !important;
+    max-height: none !important;
+    padding: 0 !important;
+  }
+
+  .jnvreport-sheet {
+    break-after: page;
+    padding: 10mm 12mm !important;
+    border: none !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .jnvreport-sheet:last-child {
+    break-after: auto;
+  }
+
+  @page {
+    size: A4;
+    margin: 8mm 0;
+  }
+}
+
+/* ===== JNV Report Page ===== */
+.jnvreport-page {
+  padding: 1.5rem;
+}
+
+.jnvreport-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.jnvreport-toolbar h2 {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.jnvreport-export-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-radius: 6px;
+  border: none;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 4px rgba(63, 81, 181, 0.25);
+}
+
+.jnvreport-export-btn:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 3px 8px rgba(63, 81, 181, 0.35);
+}
+
+.jnvreport-export-btn:active {
+  transform: scale(0.97);
+}
+
+.jnvreport-preview {
+  background: #f5f5f5;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+
+.jnvreport-sheet {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  width: 210mm;
+  min-height: 297mm;
+  font-size: 11px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.jnvreport-sheet:last-child {
+  margin-bottom: 0;
+}
+
+.jnvreport-sheet-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 0.25rem;
+}
+
+.jnvreport-sheet-summary {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin-bottom: 1rem;
+}
+
+.jnvreport-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.jnvreport-table th,
+.jnvreport-table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+}
+
+.jnvreport-table th {
+  background: #f8f9fb;
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  color: var(--text-light);
+}
+
+.jnvreport-table tbody tr:hover {
+  background: #f5f7fa;
 }

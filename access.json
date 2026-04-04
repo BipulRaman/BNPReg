@@ -1,6 +1,6 @@
 {
   "roles": {
-    "admin": ["home", "registrations", "analytics", "docgen", "cardgen"],
+    "admin": ["home", "registrations", "analytics", "docgen", "cardgen", "jnvreport"],
     "home": ["home", "cardgen"],
     "registration": ["home", "registrations", "analytics"],
     "docgen": ["home", "docgen"],

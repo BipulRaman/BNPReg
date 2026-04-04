@@ -7,6 +7,7 @@ import Registrations from './pages/Registrations';
 import Analytics from './pages/Analytics';
 import Docgen from './pages/Docgen';
 import CardGen from './pages/CardGen';
+import JnvReport from './pages/JnvReport';
 import AccessDenied from './pages/AccessDenied';
 import { accessConfig, getAllowedPages, isEmailAllowed } from './access';
 
@@ -129,6 +130,9 @@ export default function App() {
         )}
         {allowedPages.includes('cardgen') && (
           <Route path="/cardgen" element={<CardGen />} />
+        )}
+        {allowedPages.includes('jnvreport') && (
+          <Route path="/jnvreport" element={<JnvReport />} />
         )}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Route>

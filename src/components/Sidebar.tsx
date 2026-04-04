@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { Home, Table, BarChart3, FileText, Image } from 'lucide-react'
+import { Home, Table, BarChart3, FileText, Image, ClipboardList } from 'lucide-react'
 
 interface SidebarProps {
   isOpen: boolean
@@ -13,6 +13,7 @@ const navItems = [
   { to: '/analytics', label: 'Analytics', icon: BarChart3, page: 'analytics' },
   { to: '/docgen', label: 'Doc Gen', icon: FileText, page: 'docgen' },
   { to: '/cardgen', label: 'Card Gen', icon: Image, page: 'cardgen' },
+  { to: '/jnvreport', label: 'JNV Report', icon: ClipboardList, page: 'jnvreport' },
 ]
 
 export default function Sidebar({ isOpen, onClose, allowedPages }: SidebarProps) {
