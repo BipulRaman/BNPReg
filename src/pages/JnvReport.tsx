@@ -15,6 +15,7 @@ function buildGroups(data: Registration[]): JnvGroup[] {
 
   for (const r of data) {
     const jnv = r.entryJNV
+    if (!jnv) continue
     if (jnv.startsWith('BR')) {
       const list = biharMap.get(jnv) ?? []
       list.push(r)
@@ -29,6 +30,7 @@ function buildGroups(data: Registration[]): JnvGroup[] {
   const sortedKeys = [...biharMap.keys()].sort()
   for (const key of sortedKeys) {
     const members = biharMap.get(key)!
+    members.sort((a, b) => a.name.localeCompare(b.name))
     groups.push({
       label: key,
       members,
@@ -37,6 +39,7 @@ function buildGroups(data: Registration[]): JnvGroup[] {
   }
 
   if (others.length > 0) {
+    others.sort((a, b) => a.name.localeCompare(b.name))
     groups.push({
       label: 'Other JNVs (Outside Bihar)',
       members: others,
@@ -85,7 +88,7 @@ export default function JnvReport() {
       </div>
 
       <div className="jnvreport-preview">
-        {groups.map((g, gi) => (
+        {groups.filter(g => g.members.length > 0).map((g, gi) => (
           <div className="jnvreport-sheet" key={gi}>
             <h3 className="jnvreport-sheet-title">{g.label}</h3>
             <table className="jnvreport-table">
